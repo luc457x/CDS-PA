@@ -1,0 +1,36 @@
+name: Convert Jupyter Notebook to Markdown
+
+on:
+  push:
+    paths:
+      - '**.ipynb'  # Runs only when a notebook is modified
+  workflow_dispatch:  # Allows manual execution
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Jupyter and nbconvert
+      run: |
+        pip install jupyter nbconvert
+
+    - name: Convert Notebook to Markdown
+      run: |
+        jupyter nbconvert --to markdown notebook.ipynb --output README.md
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add README.md
+        git commit -m "Auto-converted notebook to README"
+        git push
