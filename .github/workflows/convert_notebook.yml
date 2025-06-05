@@ -3,7 +3,7 @@ name: Convert Jupyter Notebook to Markdown
 on:
   push:
     paths:
-      - '**.ipynb'  # Runs only when a notebook is modified
+      - 'notebook.ipynb'  # Runs only when notebook is modified
   workflow_dispatch:  # Allows manual execution
 
 jobs:
