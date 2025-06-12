@@ -184,137 +184,183 @@ df_raw.sample(30)
   </thead>
   <tbody>
     <tr>
-      <th>4344</th>
-      <td>0x67a1</td>
-      <td>BANGRES15DEL03</td>
-      <td>23</td>
-      <td>4.7</td>
-      <td>12.975377</td>
-      <td>77.696664</td>
-      <td>13.035377</td>
-      <td>77.756664</td>
-      <td>21-03-2022</td>
-      <td>20:55:00</td>
-      <td>21:10:00</td>
-      <td>conditions Windy</td>
-      <td>Jam</td>
-      <td>2</td>
-      <td>Buffet</td>
-      <td>scooter</td>
+      <th>3184</th>
+      <td>0x30fc</td>
+      <td>JAPRES13DEL03</td>
+      <td>34</td>
+      <td>5</td>
+      <td>26.846156</td>
+      <td>75.802300</td>
+      <td>26.936156</td>
+      <td>75.892300</td>
+      <td>14-03-2022</td>
+      <td>22:55:00</td>
+      <td>23:05:00</td>
+      <td>conditions Fog</td>
+      <td>Low</td>
+      <td>1</td>
+      <td>Meal</td>
+      <td>motorcycle</td>
       <td>1</td>
       <td>No</td>
       <td>Metropolitian</td>
       <td>(min) 28</td>
     </tr>
     <tr>
-      <th>2377</th>
-      <td>0x4ab3</td>
-      <td>JAPRES08DEL02</td>
-      <td>36</td>
-      <td>4.4</td>
-      <td>26.910262</td>
-      <td>75.783013</td>
-      <td>26.990262</td>
-      <td>75.863013</td>
-      <td>18-03-2022</td>
-      <td>18:00:00</td>
-      <td>18:05:00</td>
-      <td>conditions Fog</td>
-      <td>Medium</td>
-      <td>1</td>
-      <td>Buffet</td>
-      <td>scooter</td>
-      <td>0</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 43</td>
-    </tr>
-    <tr>
-      <th>2949</th>
-      <td>0x8728</td>
-      <td>PUNERES16DEL03</td>
-      <td>37</td>
-      <td>4.7</td>
-      <td>18.536718</td>
-      <td>73.830327</td>
-      <td>18.566719</td>
-      <td>73.860327</td>
-      <td>07-03-2022</td>
-      <td>19:55:00</td>
-      <td>20:10:00</td>
+      <th>2311</th>
+      <td>0xaf8c</td>
+      <td>INDORES15DEL01</td>
+      <td>39</td>
+      <td>4.5</td>
+      <td>22.760072</td>
+      <td>75.892574</td>
+      <td>22.870072</td>
+      <td>76.002574</td>
+      <td>16-03-2022</td>
+      <td>22:10:00</td>
+      <td>22:15:00</td>
       <td>conditions Windy</td>
-      <td>Jam</td>
+      <td>Low</td>
       <td>2</td>
-      <td>Snack</td>
-      <td>motorcycle</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 25</td>
-    </tr>
-    <tr>
-      <th>1394</th>
-      <td>0x131b</td>
-      <td>COIMBRES06DEL01</td>
-      <td>20</td>
-      <td>4.3</td>
-      <td>11.021278</td>
-      <td>76.995017</td>
-      <td>11.031278</td>
-      <td>77.005017</td>
-      <td>26-03-2022</td>
-      <td>08:20:00</td>
-      <td>08:25:00</td>
-      <td>conditions Stormy</td>
-      <td>Low</td>
-      <td>0</td>
-      <td>Drinks</td>
-      <td>motorcycle</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 24</td>
-    </tr>
-    <tr>
-      <th>4329</th>
-      <td>0xdc56</td>
-      <td>LUDHRES06DEL03</td>
-      <td>29</td>
-      <td>4.8</td>
-      <td>30.895204</td>
-      <td>75.822103</td>
-      <td>30.985204</td>
-      <td>75.912103</td>
-      <td>18-02-2022</td>
-      <td>23:40:00</td>
-      <td>23:50:00</td>
-      <td>conditions Stormy</td>
-      <td>Low</td>
-      <td>1</td>
       <td>Meal</td>
       <td>scooter</td>
-      <td>0</td>
+      <td>1</td>
       <td>No</td>
-      <td>Urban</td>
-      <td>(min) 17</td>
+      <td>Metropolitian</td>
+      <td>(min) 18</td>
     </tr>
     <tr>
-      <th>1459</th>
-      <td>0x552f</td>
-      <td>PUNERES17DEL02</td>
-      <td>26</td>
-      <td>5</td>
-      <td>18.530963</td>
-      <td>73.828972</td>
-      <td>18.660963</td>
-      <td>73.958972</td>
-      <td>27-03-2022</td>
-      <td>17:45:00</td>
-      <td>17:50:00</td>
+      <th>215</th>
+      <td>0x78bf</td>
+      <td>BANGRES04DEL02</td>
+      <td>39</td>
+      <td>4.4</td>
+      <td>12.980410</td>
+      <td>77.640489</td>
+      <td>13.110410</td>
+      <td>77.770489</td>
+      <td>29-03-2022</td>
+      <td>18:10:00</td>
+      <td>18:15:00</td>
+      <td>conditions Sunny</td>
+      <td>Medium</td>
+      <td>0</td>
+      <td>Meal</td>
+      <td>motorcycle</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 33</td>
+    </tr>
+    <tr>
+      <th>1369</th>
+      <td>0x4a2e</td>
+      <td>BANGRES08DEL01</td>
+      <td>22</td>
+      <td>4.7</td>
+      <td>12.906229</td>
+      <td>77.596791</td>
+      <td>12.946229</td>
+      <td>77.636791</td>
+      <td>30-03-2022</td>
+      <td>14:30:00</td>
+      <td>14:40:00</td>
+      <td>conditions Fog</td>
+      <td>High</td>
+      <td>0</td>
+      <td>Meal</td>
+      <td>motorcycle</td>
+      <td>0</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 26</td>
+    </tr>
+    <tr>
+      <th>1572</th>
+      <td>0x4db6</td>
+      <td>MYSRES11DEL01</td>
+      <td>37</td>
+      <td>4.8</td>
+      <td>12.323225</td>
+      <td>76.630028</td>
+      <td>12.363225</td>
+      <td>76.670028</td>
+      <td>03-04-2022</td>
+      <td>13:55:00</td>
+      <td>14:05:00</td>
+      <td>conditions Fog</td>
+      <td>High</td>
+      <td>1</td>
+      <td>Drinks</td>
+      <td>scooter</td>
+      <td>0</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 28</td>
+    </tr>
+    <tr>
+      <th>2632</th>
+      <td>0x101a</td>
+      <td>VADRES02DEL03</td>
+      <td>20</td>
+      <td>4.7</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.060000</td>
+      <td>0.060000</td>
+      <td>30-03-2022</td>
+      <td>17:10:00</td>
+      <td>17:20:00</td>
       <td>conditions Stormy</td>
       <td>Medium</td>
       <td>1</td>
       <td>Buffet</td>
+      <td>scooter</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 29</td>
+    </tr>
+    <tr>
+      <th>2682</th>
+      <td>0xdf52</td>
+      <td>KOCRES08DEL02</td>
+      <td>39</td>
+      <td>4.8</td>
+      <td>9.985497</td>
+      <td>76.276999</td>
+      <td>10.005497</td>
+      <td>76.296999</td>
+      <td>17-02-2022</td>
+      <td>12:00:00</td>
+      <td>12:10:00</td>
+      <td>conditions Fog</td>
+      <td>High</td>
+      <td>0</td>
+      <td>Buffet</td>
+      <td>motorcycle</td>
+      <td>0</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 34</td>
+    </tr>
+    <tr>
+      <th>913</th>
+      <td>0x1c54</td>
+      <td>MYSRES16DEL03</td>
+      <td>26</td>
+      <td>4.6</td>
+      <td>12.316967</td>
+      <td>76.603067</td>
+      <td>12.346967</td>
+      <td>76.633067</td>
+      <td>17-03-2022</td>
+      <td>20:15:00</td>
+      <td>20:20:00</td>
+      <td>conditions Cloudy</td>
+      <td>Jam</td>
+      <td>0</td>
+      <td>Snack</td>
       <td>motorcycle</td>
       <td>1</td>
       <td>No</td>
@@ -322,50 +368,326 @@ df_raw.sample(30)
       <td>(min) 21</td>
     </tr>
     <tr>
-      <th>3078</th>
-      <td>0x6538</td>
-      <td>VADRES010DEL03</td>
-      <td>36</td>
-      <td>4.4</td>
-      <td>22.310329</td>
-      <td>73.169083</td>
-      <td>22.340329</td>
-      <td>73.199083</td>
-      <td>19-03-2022</td>
-      <td>19:20:00</td>
-      <td>19:25:00</td>
+      <th>1231</th>
+      <td>0xc9d2</td>
+      <td>GOARES19DEL03</td>
+      <td>35</td>
+      <td>4.6</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.090000</td>
+      <td>0.090000</td>
+      <td>16-02-2022</td>
+      <td>17:30:00</td>
+      <td>17:35:00</td>
       <td>conditions Sandstorms</td>
-      <td>Jam</td>
-      <td>0</td>
-      <td>Snack</td>
-      <td>motorcycle</td>
+      <td>Medium</td>
+      <td>2</td>
+      <td>Meal</td>
+      <td>scooter</td>
       <td>0</td>
       <td>No</td>
-      <td>Semi-Urban</td>
-      <td>(min) 48</td>
+      <td>Metropolitian</td>
+      <td>(min) 23</td>
     </tr>
     <tr>
-      <th>2967</th>
-      <td>0xaad4</td>
-      <td>MYSRES15DEL03</td>
-      <td>25</td>
-      <td>4.8</td>
-      <td>12.352058</td>
-      <td>76.606650</td>
-      <td>12.442058</td>
-      <td>76.696650</td>
-      <td>16-03-2022</td>
-      <td>18:45:00</td>
-      <td>19:00:00</td>
-      <td>conditions Cloudy</td>
-      <td>Medium</td>
-      <td>0</td>
+      <th>2398</th>
+      <td>0xc438</td>
+      <td>GOARES06DEL02</td>
+      <td>34</td>
+      <td>4.7</td>
+      <td>15.561550</td>
+      <td>73.749092</td>
+      <td>15.581550</td>
+      <td>73.769092</td>
+      <td>17-02-2022</td>
+      <td>08:20:00</td>
+      <td>08:30:00</td>
+      <td>conditions Windy</td>
+      <td>Low</td>
+      <td>2</td>
       <td>Snack</td>
+      <td>scooter</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 26</td>
+    </tr>
+    <tr>
+      <th>3203</th>
+      <td>0xd8f</td>
+      <td>HYDRES010DEL01</td>
+      <td>29</td>
+      <td>4</td>
+      <td>17.428294</td>
+      <td>78.404423</td>
+      <td>17.498294</td>
+      <td>78.474423</td>
+      <td>04-04-2022</td>
+      <td>18:10:00</td>
+      <td>18:20:00</td>
+      <td>conditions Fog</td>
+      <td>Medium</td>
+      <td>2</td>
+      <td>Meal</td>
+      <td>scooter</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 32</td>
+    </tr>
+    <tr>
+      <th>4079</th>
+      <td>0x3688</td>
+      <td>PUNERES13DEL02</td>
+      <td>37</td>
+      <td>4</td>
+      <td>18.562450</td>
+      <td>73.916619</td>
+      <td>18.642450</td>
+      <td>73.996619</td>
+      <td>14-03-2022</td>
+      <td>23:30:00</td>
+      <td>23:40:00</td>
+      <td>conditions Cloudy</td>
+      <td>Low</td>
+      <td>0</td>
+      <td>Meal</td>
       <td>motorcycle</td>
       <td>2</td>
       <td>No</td>
       <td>Metropolitian</td>
-      <td>(min) 38</td>
+      <td>(min) 35</td>
+    </tr>
+    <tr>
+      <th>3225</th>
+      <td>0x7ed9</td>
+      <td>VADRES05DEL03</td>
+      <td>38</td>
+      <td>4.9</td>
+      <td>22.310526</td>
+      <td>73.170937</td>
+      <td>22.400526</td>
+      <td>73.260937</td>
+      <td>29-03-2022</td>
+      <td>20:00:00</td>
+      <td>20:05:00</td>
+      <td>conditions Stormy</td>
+      <td>Jam</td>
+      <td>1</td>
+      <td>Snack</td>
+      <td>scooter</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 26</td>
+    </tr>
+    <tr>
+      <th>2796</th>
+      <td>0xc097</td>
+      <td>BHPRES01DEL03</td>
+      <td>36</td>
+      <td>4.8</td>
+      <td>-23.211529</td>
+      <td>77.419399</td>
+      <td>23.241529</td>
+      <td>77.449399</td>
+      <td>15-02-2022</td>
+      <td>21:35:00</td>
+      <td>21:45:00</td>
+      <td>conditions Sandstorms</td>
+      <td>Jam</td>
+      <td>2</td>
+      <td>Meal</td>
+      <td>scooter</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 28</td>
+    </tr>
+    <tr>
+      <th>1653</th>
+      <td>0x39d1</td>
+      <td>CHENRES07DEL02</td>
+      <td>33</td>
+      <td>4.6</td>
+      <td>13.081878</td>
+      <td>80.248519</td>
+      <td>13.131878</td>
+      <td>80.298519</td>
+      <td>03-03-2022</td>
+      <td>19:20:00</td>
+      <td>19:25:00</td>
+      <td>conditions Sunny</td>
+      <td>Jam</td>
+      <td>2</td>
+      <td>Drinks</td>
+      <td>scooter</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Urban</td>
+      <td>(min) 18</td>
+    </tr>
+    <tr>
+      <th>2760</th>
+      <td>0x730c</td>
+      <td>JAPRES12DEL02</td>
+      <td>22</td>
+      <td>5</td>
+      <td>26.902908</td>
+      <td>75.792934</td>
+      <td>27.032908</td>
+      <td>75.922934</td>
+      <td>10-03-2022</td>
+      <td>17:15:00</td>
+      <td>17:30:00</td>
+      <td>conditions Sunny</td>
+      <td>Medium</td>
+      <td>1</td>
+      <td>Meal</td>
+      <td>scooter</td>
+      <td>0</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 12</td>
+    </tr>
+    <tr>
+      <th>3380</th>
+      <td>0x29c3</td>
+      <td>VADRES07DEL02</td>
+      <td>38</td>
+      <td>4.9</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.020000</td>
+      <td>0.020000</td>
+      <td>03-04-2022</td>
+      <td>11:55:00</td>
+      <td>12:00:00</td>
+      <td>conditions Stormy</td>
+      <td>High</td>
+      <td>1</td>
+      <td>Snack</td>
+      <td>scooter</td>
+      <td>0</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 33</td>
+    </tr>
+    <tr>
+      <th>2483</th>
+      <td>0xab6e</td>
+      <td>RANCHIRES02DEL02</td>
+      <td>36</td>
+      <td>4.7</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.050000</td>
+      <td>0.050000</td>
+      <td>17-03-2022</td>
+      <td>17:25:00</td>
+      <td>17:40:00</td>
+      <td>conditions Cloudy</td>
+      <td>Medium</td>
+      <td>1</td>
+      <td>Meal</td>
+      <td>motorcycle</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Urban</td>
+      <td>(min) 15</td>
+    </tr>
+    <tr>
+      <th>4435</th>
+      <td>0x4bea</td>
+      <td>MYSRES11DEL01</td>
+      <td>31</td>
+      <td>3.5</td>
+      <td>12.323225</td>
+      <td>76.630028</td>
+      <td>12.393225</td>
+      <td>76.700028</td>
+      <td>08-03-2022</td>
+      <td>21:30:00</td>
+      <td>21:40:00</td>
+      <td>conditions Windy</td>
+      <td>Jam</td>
+      <td>2</td>
+      <td>Buffet</td>
+      <td>electric_scooter</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 32</td>
+    </tr>
+    <tr>
+      <th>2994</th>
+      <td>0xa649</td>
+      <td>BANGRES03DEL03</td>
+      <td>33</td>
+      <td>4</td>
+      <td>12.979166</td>
+      <td>77.640709</td>
+      <td>13.009166</td>
+      <td>77.670709</td>
+      <td>01-04-2022</td>
+      <td>17:20:00</td>
+      <td>17:35:00</td>
+      <td>conditions Cloudy</td>
+      <td>Medium</td>
+      <td>0</td>
+      <td>Buffet</td>
+      <td>motorcycle</td>
+      <td>1</td>
+      <td>No</td>
+      <td>NaN</td>
+      <td>(min) 34</td>
+    </tr>
+    <tr>
+      <th>2445</th>
+      <td>0x9b7b</td>
+      <td>BANGRES14DEL01</td>
+      <td>38</td>
+      <td>4.3</td>
+      <td>12.949934</td>
+      <td>77.699386</td>
+      <td>12.989934</td>
+      <td>77.739386</td>
+      <td>28-03-2022</td>
+      <td>12:35:00</td>
+      <td>12:45:00</td>
+      <td>conditions Windy</td>
+      <td>High</td>
+      <td>0</td>
+      <td>Drinks</td>
+      <td>motorcycle</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Metropolitian</td>
+      <td>(min) 31</td>
+    </tr>
+    <tr>
+      <th>457</th>
+      <td>0xbf6c</td>
+      <td>LUDHRES07DEL02</td>
+      <td>20</td>
+      <td>4.6</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.080000</td>
+      <td>0.080000</td>
+      <td>12-02-2022</td>
+      <td>22:00:00</td>
+      <td>22:10:00</td>
+      <td>conditions Sunny</td>
+      <td>Jam</td>
+      <td>2</td>
+      <td>Buffet</td>
+      <td>motorcycle</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Urban</td>
+      <td>(min) 19</td>
     </tr>
     <tr>
       <th>106</th>
@@ -391,487 +713,165 @@ df_raw.sample(30)
       <td>(min) 22</td>
     </tr>
     <tr>
-      <th>496</th>
-      <td>0x9155</td>
-      <td>INDORES05DEL02</td>
-      <td>26</td>
+      <th>1628</th>
+      <td>0xc810</td>
+      <td>KOLRES06DEL01</td>
+      <td>31</td>
       <td>4.8</td>
-      <td>22.727021</td>
-      <td>75.884167</td>
-      <td>22.747021</td>
-      <td>75.904167</td>
-      <td>26-03-2022</td>
-      <td>09:50:00</td>
-      <td>10:00:00</td>
+      <td>22.533662</td>
+      <td>88.366217</td>
+      <td>22.603662</td>
+      <td>88.436217</td>
+      <td>18-02-2022</td>
+      <td>22:45:00</td>
+      <td>22:55:00</td>
       <td>conditions Windy</td>
       <td>Low</td>
-      <td>2</td>
+      <td>0</td>
+      <td>Drinks</td>
+      <td>motorcycle</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Urban</td>
+      <td>(min) 26</td>
+    </tr>
+    <tr>
+      <th>1455</th>
+      <td>0x37aa</td>
+      <td>JAPRES17DEL02</td>
+      <td>37</td>
+      <td>4.8</td>
+      <td>26.892312</td>
+      <td>75.806896</td>
+      <td>26.912312</td>
+      <td>75.826896</td>
+      <td>17-03-2022</td>
+      <td>09:00:00</td>
+      <td>09:10:00</td>
+      <td>conditions Sandstorms</td>
+      <td>Low</td>
+      <td>1</td>
       <td>Buffet</td>
-      <td>scooter</td>
+      <td>motorcycle</td>
       <td>0</td>
       <td>No</td>
       <td>Metropolitian</td>
-      <td>(min) 14</td>
+      <td>(min) 29</td>
     </tr>
     <tr>
-      <th>2158</th>
-      <td>0x506e</td>
-      <td>BANGRES04DEL01</td>
-      <td>24</td>
+      <th>308</th>
+      <td>0x8366</td>
+      <td>MYSRES08DEL03</td>
+      <td>22</td>
       <td>4.6</td>
-      <td>12.980410</td>
-      <td>77.640489</td>
-      <td>13.090410</td>
-      <td>77.750489</td>
-      <td>14-03-2022</td>
-      <td>20:10:00</td>
-      <td>20:25:00</td>
-      <td>conditions Sunny</td>
-      <td>Jam</td>
+      <td>12.297954</td>
+      <td>76.665169</td>
+      <td>12.327954</td>
+      <td>76.695169</td>
+      <td>05-03-2022</td>
+      <td>23:00:00</td>
+      <td>23:05:00</td>
+      <td>conditions Windy</td>
+      <td>Low</td>
       <td>1</td>
-      <td>Meal</td>
+      <td>Buffet</td>
       <td>motorcycle</td>
       <td>1</td>
       <td>No</td>
       <td>Metropolitian</td>
-      <td>(min) 23</td>
+      <td>(min) 19</td>
     </tr>
     <tr>
-      <th>3769</th>
-      <td>0x152e</td>
-      <td>VADRES02DEL02</td>
-      <td>25</td>
-      <td>5</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.130000</td>
-      <td>0.130000</td>
-      <td>02-03-2022</td>
-      <td>19:50:00</td>
-      <td>20:00:00</td>
-      <td>conditions Stormy</td>
-      <td>Jam</td>
-      <td>1</td>
-      <td>Snack</td>
-      <td>scooter</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Urban</td>
-      <td>(min) 27</td>
-    </tr>
-    <tr>
-      <th>1789</th>
-      <td>0x6343</td>
-      <td>COIMBRES02DEL01</td>
-      <td>25</td>
-      <td>5</td>
-      <td>11.022477</td>
-      <td>76.995667</td>
-      <td>11.132477</td>
-      <td>77.105667</td>
-      <td>29-03-2022</td>
-      <td>18:15:00</td>
-      <td>18:25:00</td>
+      <th>4160</th>
+      <td>0x9379</td>
+      <td>BANGRES12DEL03</td>
+      <td>38</td>
+      <td>4.4</td>
+      <td>12.939496</td>
+      <td>77.625999</td>
+      <td>12.999496</td>
+      <td>77.685999</td>
+      <td>21-03-2022</td>
+      <td>21:10:00</td>
+      <td>21:15:00</td>
       <td>conditions Sandstorms</td>
-      <td>Medium</td>
+      <td>Jam</td>
       <td>2</td>
       <td>Snack</td>
       <td>scooter</td>
       <td>1</td>
       <td>No</td>
       <td>Metropolitian</td>
+      <td>(min) 31</td>
+    </tr>
+    <tr>
+      <th>948</th>
+      <td>0x708b</td>
+      <td>SURRES06DEL02</td>
+      <td>24</td>
+      <td>4.9</td>
+      <td>21.185047</td>
+      <td>72.808590</td>
+      <td>21.205047</td>
+      <td>72.828590</td>
+      <td>01-03-2022</td>
+      <td>10:20:00</td>
+      <td>10:25:00</td>
+      <td>conditions Sunny</td>
+      <td>Low</td>
+      <td>0</td>
+      <td>Buffet</td>
+      <td>motorcycle</td>
+      <td>1</td>
+      <td>No</td>
+      <td>Urban</td>
       <td>(min) 18</td>
     </tr>
     <tr>
-      <th>292</th>
-      <td>0x8de9</td>
-      <td>SURRES14DEL03</td>
-      <td>21</td>
-      <td>4.9</td>
-      <td>21.157729</td>
-      <td>72.768726</td>
-      <td>21.247729</td>
-      <td>72.858726</td>
-      <td>20-03-2022</td>
-      <td>23:20:00</td>
-      <td>23:30:00</td>
-      <td>conditions Fog</td>
-      <td>Low</td>
-      <td>2</td>
-      <td>Buffet</td>
-      <td>scooter</td>
-      <td>1</td>
-      <td>No</td>
-      <td>NaN</td>
-      <td>(min) 21</td>
-    </tr>
-    <tr>
-      <th>1463</th>
-      <td>0xb752</td>
-      <td>INDORES09DEL03</td>
-      <td>25</td>
-      <td>4.8</td>
-      <td>22.725835</td>
-      <td>75.887648</td>
-      <td>22.755835</td>
-      <td>75.917648</td>
-      <td>05-03-2022</td>
-      <td>21:50:00</td>
-      <td>22:00:00</td>
-      <td>conditions Cloudy</td>
-      <td>Jam</td>
-      <td>0</td>
-      <td>Meal</td>
-      <td>motorcycle</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 26</td>
-    </tr>
-    <tr>
-      <th>3475</th>
-      <td>0x4a92</td>
-      <td>PUNERES14DEL02</td>
-      <td>33</td>
-      <td>4.1</td>
-      <td>18.516216</td>
-      <td>73.842527</td>
-      <td>18.646216</td>
-      <td>73.972527</td>
-      <td>04-04-2022</td>
-      <td>18:20:00</td>
-      <td>18:35:00</td>
-      <td>conditions Stormy</td>
-      <td>Medium</td>
-      <td>0</td>
-      <td>Buffet</td>
-      <td>motorcycle</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 43</td>
-    </tr>
-    <tr>
-      <th>2184</th>
-      <td>0x7890</td>
-      <td>SURRES02DEL02</td>
-      <td>26</td>
-      <td>5</td>
-      <td>21.186608</td>
-      <td>72.794136</td>
-      <td>21.236608</td>
-      <td>72.844136</td>
-      <td>15-03-2022</td>
-      <td>17:35:00</td>
-      <td>17:50:00</td>
-      <td>conditions Stormy</td>
-      <td>Medium</td>
-      <td>2</td>
-      <td>Meal</td>
-      <td>electric_scooter</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 23</td>
-    </tr>
-    <tr>
-      <th>2823</th>
-      <td>0x59e9</td>
-      <td>PUNERES20DEL01</td>
-      <td>22</td>
-      <td>5</td>
-      <td>18.592718</td>
-      <td>73.773572</td>
-      <td>18.602718</td>
-      <td>73.783572</td>
-      <td>28-03-2022</td>
-      <td>08:40:00</td>
-      <td>08:55:00</td>
-      <td>conditions Cloudy</td>
-      <td>Low</td>
-      <td>2</td>
-      <td>Drinks</td>
-      <td>scooter</td>
-      <td>0</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 17</td>
-    </tr>
-    <tr>
-      <th>3158</th>
-      <td>0x1c44</td>
-      <td>HYDRES16DEL03</td>
-      <td>27</td>
-      <td>4.6</td>
-      <td>17.440827</td>
-      <td>78.393391</td>
-      <td>17.500827</td>
-      <td>78.453391</td>
-      <td>19-03-2022</td>
-      <td>21:00:00</td>
-      <td>21:05:00</td>
-      <td>conditions Sandstorms</td>
-      <td>Jam</td>
-      <td>1</td>
-      <td>Meal</td>
-      <td>motorcycle</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Urban</td>
-      <td>(min) 23</td>
-    </tr>
-    <tr>
-      <th>93</th>
-      <td>0x6d19</td>
-      <td>INDORES12DEL02</td>
+      <th>403</th>
+      <td>0xa667</td>
+      <td>CHENRES14DEL01</td>
       <td>38</td>
-      <td>4.9</td>
-      <td>22.748060</td>
-      <td>75.893400</td>
-      <td>22.768060</td>
-      <td>75.913400</td>
-      <td>11-03-2022</td>
-      <td>08:40:00</td>
-      <td>08:55:00</td>
-      <td>conditions Cloudy</td>
+      <td>4.5</td>
+      <td>13.026279</td>
+      <td>80.174568</td>
+      <td>13.036279</td>
+      <td>80.184568</td>
+      <td>28-03-2022</td>
+      <td>10:20:00</td>
+      <td>10:25:00</td>
+      <td>conditions Windy</td>
       <td>Low</td>
-      <td>2</td>
-      <td>Drinks</td>
-      <td>scooter</td>
+      <td>1</td>
+      <td>Meal</td>
+      <td>motorcycle</td>
       <td>1</td>
       <td>No</td>
       <td>Urban</td>
-      <td>(min) 15</td>
-    </tr>
-    <tr>
-      <th>277</th>
-      <td>0x4fb8</td>
-      <td>VADRES09DEL01</td>
-      <td>35</td>
-      <td>5</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.070000</td>
-      <td>0.070000</td>
-      <td>27-03-2022</td>
-      <td>17:25:00</td>
-      <td>17:35:00</td>
-      <td>conditions Fog</td>
-      <td>Medium</td>
-      <td>0</td>
-      <td>Snack</td>
-      <td>motorcycle</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 37</td>
-    </tr>
-    <tr>
-      <th>459</th>
-      <td>0xafd4</td>
-      <td>COIMBRES19DEL02</td>
-      <td>27</td>
-      <td>4.6</td>
-      <td>11.022298</td>
-      <td>76.998349</td>
-      <td>11.042298</td>
-      <td>77.018349</td>
-      <td>07-03-2022</td>
-      <td>11:30:00</td>
-      <td>11:40:00</td>
-      <td>conditions Sunny</td>
-      <td>High</td>
-      <td>2</td>
-      <td>Buffet</td>
-      <td>electric_scooter</td>
-      <td>0</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 16</td>
-    </tr>
-    <tr>
-      <th>781</th>
-      <td>0xcda0</td>
-      <td>ALHRES18DEL02</td>
-      <td>31</td>
-      <td>4.3</td>
-      <td>25.450317</td>
-      <td>81.831681</td>
-      <td>25.470317</td>
-      <td>81.851681</td>
-      <td>13-02-2022</td>
-      <td>12:00:00</td>
-      <td>12:10:00</td>
-      <td>conditions Windy</td>
-      <td>High</td>
-      <td>0</td>
-      <td>Buffet</td>
-      <td>motorcycle</td>
-      <td>1</td>
-      <td>Yes</td>
-      <td>Metropolitian</td>
-      <td>(min) 48</td>
-    </tr>
-    <tr>
-      <th>2113</th>
-      <td>0x1255</td>
-      <td>VADRES05DEL01</td>
-      <td>30</td>
-      <td>4.8</td>
-      <td>22.310526</td>
-      <td>73.170937</td>
-      <td>22.380526</td>
-      <td>73.240937</td>
-      <td>04-03-2022</td>
-      <td>00:00:00</td>
-      <td>00:15:00</td>
-      <td>conditions Stormy</td>
-      <td>Low</td>
-      <td>0</td>
-      <td>Drinks</td>
-      <td>motorcycle</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Metropolitian</td>
       <td>(min) 20</td>
     </tr>
     <tr>
-      <th>1032</th>
-      <td>0xc7e2</td>
-      <td>BHPRES18DEL03</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>23.234631</td>
-      <td>77.401663</td>
-      <td>23.264631</td>
-      <td>77.431663</td>
-      <td>13-02-2022</td>
-      <td>NaN</td>
-      <td>18:15:00</td>
-      <td>conditions Sandstorms</td>
-      <td>Medium</td>
-      <td>2</td>
-      <td>Snack</td>
-      <td>scooter</td>
-      <td>0</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 30</td>
-    </tr>
-    <tr>
-      <th>1353</th>
-      <td>0x2de8</td>
-      <td>COIMBRES14DEL03</td>
-      <td>24</td>
-      <td>4.9</td>
-      <td>11.003681</td>
-      <td>76.975525</td>
-      <td>11.063681</td>
-      <td>77.035525</td>
-      <td>07-03-2022</td>
-      <td>23:25:00</td>
-      <td>23:30:00</td>
+      <th>4209</th>
+      <td>0x9b1f</td>
+      <td>VADRES03DEL02</td>
+      <td>23</td>
+      <td>4.5</td>
+      <td>22.320000</td>
+      <td>73.170000</td>
+      <td>22.370000</td>
+      <td>73.220000</td>
+      <td>15-03-2022</td>
+      <td>22:25:00</td>
+      <td>22:40:00</td>
       <td>conditions Stormy</td>
       <td>Low</td>
-      <td>2</td>
-      <td>Drinks</td>
-      <td>electric_scooter</td>
-      <td>0</td>
-      <td>No</td>
-      <td>Urban</td>
-      <td>(min) 17</td>
-    </tr>
-    <tr>
-      <th>1306</th>
-      <td>0x39eb</td>
-      <td>VADRES15DEL03</td>
-      <td>34</td>
-      <td>4.9</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.090000</td>
-      <td>0.090000</td>
-      <td>06-04-2022</td>
-      <td>19:10:00</td>
-      <td>19:25:00</td>
-      <td>conditions Fog</td>
-      <td>Jam</td>
-      <td>0</td>
-      <td>Drinks</td>
+      <td>1</td>
+      <td>Buffet</td>
       <td>motorcycle</td>
-      <td>1</td>
-      <td>Yes</td>
-      <td>Metropolitian</td>
-      <td>(min) 40</td>
-    </tr>
-    <tr>
-      <th>1723</th>
-      <td>0x86cb</td>
-      <td>VADRES09DEL03</td>
-      <td>25</td>
-      <td>4.8</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.030000</td>
-      <td>0.030000</td>
-      <td>28-03-2022</td>
-      <td>23:20:00</td>
-      <td>23:35:00</td>
-      <td>conditions Sandstorms</td>
-      <td>Low</td>
-      <td>2</td>
-      <td>Buffet</td>
-      <td>scooter</td>
-      <td>1</td>
-      <td>No</td>
-      <td>Metropolitian</td>
-      <td>(min) 15</td>
-    </tr>
-    <tr>
-      <th>1379</th>
-      <td>0xddb3</td>
-      <td>AURGRES16DEL01</td>
-      <td>32</td>
-      <td>4.8</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>0.040000</td>
-      <td>0.040000</td>
-      <td>15-02-2022</td>
-      <td>13:15:00</td>
-      <td>13:20:00</td>
-      <td>conditions Sandstorms</td>
-      <td>High</td>
-      <td>1</td>
-      <td>Drinks</td>
-      <td>scooter</td>
-      <td>1</td>
-      <td>No</td>
-      <td>NaN</td>
-      <td>(min) 26</td>
-    </tr>
-    <tr>
-      <th>1443</th>
-      <td>0x821e</td>
-      <td>JAPRES20DEL02</td>
-      <td>39</td>
-      <td>4</td>
-      <td>26.956431</td>
-      <td>75.776649</td>
-      <td>26.976431</td>
-      <td>75.796649</td>
-      <td>05-04-2022</td>
-      <td>11:20:00</td>
-      <td>11:35:00</td>
-      <td>conditions Stormy</td>
-      <td>High</td>
-      <td>2</td>
-      <td>Buffet</td>
-      <td>scooter</td>
       <td>0</td>
       <td>No</td>
       <td>Metropolitian</td>
-      <td>(min) 34</td>
+      <td>(min) 17</td>
     </tr>
   </tbody>
 </table>
@@ -2701,7 +2701,7 @@ with open(notebook_filename, 'r', encoding='utf-8') as f:
 # Converter para Markdown
 exporter = MarkdownExporter()
 markdown_content, resources = exporter.from_notebook_node(notebook_content)
-markdown_filename = os.path.splitext(notebook_filename)[0] + ".md"
+markdown_filename = "README.MD"
 with open(markdown_filename, 'w', encoding='utf-8') as f:
     f.write(markdown_content)
 # Salvar recursos adicionais, se existirem
@@ -2711,4 +2711,9 @@ if 'outputs' in resources:
     for resource_name, resource_data in resources['outputs'].items():
         with open(os.path.join(output_dir, resource_name), 'wb') as f:
             f.write(resource_data)
+```
+
+
+```python
+
 ```
