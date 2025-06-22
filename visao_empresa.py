@@ -1,7 +1,4 @@
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
+from utils import *
 
 df = pd.read_csv("train.csv")
 df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
