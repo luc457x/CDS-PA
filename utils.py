@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from matplotlib.ticker import FuncFormatter
+import plotly as plt
 import re
 
 pd.set_option("display.max_columns", None)
@@ -60,9 +58,6 @@ def check_columns_for_set(column, value_set):
     """Encontra as colunas que contem apenas subconjuntos de um conjunto de valores."""
     non_nan_values = column.dropna()
     return non_nan_values.isin(value_set).all()
-
-def to_percent(y, position):
-    return f'{y * 100:.0f}%'
 
 
 def extract_last_number(text):
