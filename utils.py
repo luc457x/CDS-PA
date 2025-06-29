@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
-import plotly as plt
+import plotly.express as px
 import re
+import folium
 
 pd.set_option("display.max_columns", None)
 pd.set_option('future.no_silent_downcasting', True)
