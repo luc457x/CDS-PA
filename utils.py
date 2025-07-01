@@ -46,12 +46,12 @@ def plot_histogram(df):
     numeric_columns = df.select_dtypes(include=[np.number]).columns
     nrows = int(np.ceil(np.sqrt(len(numeric_columns))))
     ncols = int(np.ceil(len(numeric_columns) / nrows))
-    fig = ps.make_subplots(rows=nrows, cols=ncols, title="Numeric Columns", subplot_titles=numeric_columns)
+    fig = ps.make_subplots(rows=nrows, cols=ncols, subplot_titles=numeric_columns)
     for i, column in enumerate(numeric_columns):
         row_idx = (i // ncols) + 1
         col_idx = (i % ncols) + 1
         fig.add_trace(px.histogram(df, x=column).data[0], row=row_idx, col=col_idx)
-    fig.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
+    fig.update_layout(title={"text": "Numeric Columns", "x": 0.5, "xanchor": "center", "font": {"size": 24}},
     xaxis={"title_font": {"size": 18}, "showgrid": True},
     yaxis={"title_font": {"size": 18}, "showgrid": True})
     return fig
