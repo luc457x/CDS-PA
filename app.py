@@ -45,6 +45,8 @@ df_aux["Time_to_delivery"] = (df_aux["Time_Order_delivered"] - df_aux["Time_Orde
 df_aux = df_aux.drop(columns=["Time_Ordered", "Time_Order_picked", "Time_Order_delivered"])
 df_times_grouped = df_aux.groupby(["Type_of_order"]).agg(["mean", "median"]).reset_index()
 df_clear["Time_Ordered"] = df_clear["Time_Ordered"].fillna(df_clear["Time_Order_picked"] - pd.to_timedelta(df_times_grouped.loc[0, ("Time_to_pick", "median")], unit="m"))
+df_clear["Distance(km)"] = df_clear.apply(lambda x: haversine(x["Restaurant_location"], x["Delivery_location"]), axis=1)
+df_clear["Velocity(km/h)"] = df_clear["Distance(km)"] / (df_clear["Time_taken(min)"] / 60)
 ### Layout Streamlit
 st.set_page_config(page_title="Curry Company - Visão Empresa", page_icon="📈", layout="wide")
 ## Sidebar
@@ -114,8 +116,7 @@ fig03.update_layout(width=700, height=600,
     title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
     legend={"font": {"size": 18}})
 df = df_clear[["ID", "City", "Road_traffic_density"]].groupby(["City", "Road_traffic_density"]).count().reset_index()
-df = df.pivot(index="City", columns="Road_traffic_density", values="ID").fillna(0)
-fig04 = px.bar(df, x=df.index, y=df.columns, title="Pedidos por tipo de cidade agrupados por densidade de tráfego", labels={"City": "Tipo de cidade", "value": "Quantidade de pedidos em escala log", "Road_traffic_density": "Densidade de tráfego"}, barmode="stack", log_y=True)
+fig04 = px.bar(df, x="City", y="ID", color="Road_traffic_density", title="Pedidos por tipo de cidade agrupados por densidade de tráfego", labels={"City": "Tipo de cidade", "ID": "Quantidade de pedidos", "Road_traffic_density": "Densidade de tráfego"}, barmode="stack", log_y=True)
 fig04.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
     xaxis={"title_font": {"size": 18}, "showgrid": True},
     yaxis={"title_font": {"size": 18}, "showgrid": True})
@@ -144,19 +145,29 @@ for index, location_info in df_aux.iterrows():
     </div>
     """
     folium.Marker(location_info["Delivery_location"], popup=folium.Popup(popup_html, max_width=350)).add_to(fig06)
-# ===============================
-df_aux = df_clear[["ID", "Delivery_person_Age"]].groupby("Delivery_person_Age").count().reset_index().sort_values(by="Delivery_person_Age")
-fig07 = px.bar(df_aux, x="Delivery_person_Age", y="ID", title="Quantidade de entregadores por idade", labels={"Delivery_person_Age": "Idade", "ID": "Quantidade"})
+df_aux = df_clear[["Delivery_person_ID", "Delivery_person_Age"]].groupby("Delivery_person_Age").nunique().reset_index().sort_values(by="Delivery_person_Age")
+fig07 = px.bar(df_aux, x="Delivery_person_Age", y="Delivery_person_ID", title="Quantidade de entregadores por idade", labels={"Delivery_person_Age": "Idade", "Delivery_person_ID": "Quantidade"})
 fig07.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
     xaxis={"title_font": {"size": 18}, "showgrid": True},
     yaxis={"title_font": {"size": 18}, "showgrid": True})
-df_aux = df_clear[["ID", "Vehicle_condition"]].groupby("Vehicle_condition").count().reset_index().sort_values(by="Vehicle_condition")
+df_aux = df_clear[["Delivery_person_ID", "Vehicle_condition"]].groupby("Vehicle_condition").nunique().reset_index().sort_values(by="Vehicle_condition")
 x_values = df_aux["Vehicle_condition"].unique()
-fig08 = px.bar(df_aux, x="Vehicle_condition", y="ID", title="Quantidade de entregadores por condição de veículo", labels={"Vehicle_condition": "Condição", "ID": "Quantidade"})
+fig08 = px.bar(df_aux, x="Vehicle_condition", y="Delivery_person_ID", title="Quantidade de veículos por condição", labels={"Vehicle_condition": "Condição", "Delivery_person_ID": "Quantidade"})
 fig08.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
     xaxis={"title_font": {"size": 18}, "showgrid": True, "tickmode": "array", "tickvals": x_values, "ticktext": ["muito ruim", "ruim", "bom", "muito bom"]},
     yaxis={"title_font": {"size": 18}, "showgrid": True, "type": "log"})
-# ===============================
+fig09 = df_clear[["Delivery_person_ID", "Delivery_person_Ratings"]].groupby("Delivery_person_ID").mean().sort_values(by="Delivery_person_Ratings", ascending=False).rename(columns={"Delivery_person_Ratings": "Mean_rating"}).reset_index()
+fig09["Mean_rating"] = fig09["Mean_rating"].round(2)
+fig10 = df_clear[["Delivery_person_Ratings", "Road_traffic_density"]].groupby("Road_traffic_density").agg({"Delivery_person_Ratings": ["mean", "std"]})
+fig10.columns = ["Mean_Rating", "Std_Rating"]
+fig10.reset_index(inplace=True)
+fig11 = df_clear[["Delivery_person_Ratings", "Weatherconditions"]].groupby("Weatherconditions").agg({"Delivery_person_Ratings": ["mean", "std"]})
+fig11.columns = ["Mean_Rating", "Std_Rating"]
+fig11.reset_index(inplace=True)
+fig12 = df_clear[["Delivery_person_ID", "Velocity(km/h)"]].groupby("Delivery_person_ID").mean().sort_values("Velocity(km/h)", ascending=False).reset_index()
+fig12 = fig12.head(10).reset_index(drop=True)
+fig13 = df_clear[["Delivery_person_ID", "Velocity(km/h)"]].groupby("Delivery_person_ID").mean().sort_values("Velocity(km/h)").reset_index()
+fig13 = fig13.head(10).reset_index(drop=True)
 # body
 def viz1():
     tab1, tab2, tab3 = st.tabs(["Gerencial", "Tático", "Geográfico"], )
@@ -173,7 +184,7 @@ def viz1():
     with tab3:
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            st.header("Localização central de entregas agrupados por tipo de cidade e tráfego")
+            st.write("Localização central de entregas agrupados por tipo de cidade e tráfego")
             folium_static(fig06, width=1024, height=600)
 def viz2():
     col1, col2 = st.columns([1, 1], gap="medium")
@@ -181,6 +192,24 @@ def viz2():
         st.plotly_chart(fig07, use_container_width=True)
     with col2:
         st.plotly_chart(fig08, use_container_width=True)
+    col1, col2 = st.columns([1, 2], gap="medium")
+    with col1:
+        st.write("Avaliação média por serviço de entrega")
+        st.dataframe(fig09, use_container_width=True)
+    with col2:
+        st.write("Avaliação média e desvio padrão por tráfego")
+        st.dataframe(fig10, use_container_width=True)
+        st.write("Avaliação média e desvio padrão por condições climáticas")
+        st.dataframe(fig11, use_container_width=True)
+    col1, col2 = st.columns([1, 1], gap="medium")
+    with col1:
+        st.write("TOP 10 entregadores mais rápidos")
+        st.dataframe(fig12, use_container_width=True)
+    with col2:
+        st.write("TOP 10 entregadores mais lentos")
+        st.dataframe(fig13, use_container_width=True)
+
+        
 def viz3():
     st.write("Em construção")
 if 'visualizacao' not in st.session_state:
