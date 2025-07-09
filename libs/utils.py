@@ -1,8 +1,8 @@
-import folium
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.subplots as ps
+import folium
 from haversine import haversine
 
 pd.set_option("display.max_columns", None)
