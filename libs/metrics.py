@@ -1,4 +1,4 @@
-from .utils import pd, np
+from .utils import pd, np, haversine
 import plotly.express as px
 import plotly.subplots as ps
 import folium
@@ -49,6 +49,7 @@ def get_metrics_deliveries(df: pd.DataFrame):
     - Maximum delivery person rating.
     - Mean delivery person rating.
     - Standard deviation of delivery person ratings.
+    - Mean delivery distance.
 
     :param df: DataFrame containing the dataset with "Delivery_person_Ratings" column.
     :return: Dictionary containing the calculated metrics.
@@ -58,10 +59,26 @@ def get_metrics_deliveries(df: pd.DataFrame):
     metrics["ratings_max"] = df["Delivery_person_Ratings"].max()
     metrics["ratings_mean"] = df["Delivery_person_Ratings"].mean()
     metrics["ratings_std_dev"] = df["Delivery_person_Ratings"].std()
+    metrics["mean_delivery_distance"] = df.apply(lambda x: haversine(x["Restaurant_location"], x["Delivery_location"]), axis=1).mean()
     return metrics
 
 def get_metrics_restaurants(df: pd.DataFrame):
+    """
+    This function processes the DataFrame to compute several restaurant-related metrics:
+    - Maximum pick-up time in minutes.
+    - Minimum pick-up time in minutes.
+    - Mean pick-up time in minutes.
+    - Standard deviation of pick-up times in minutes.
+
+    :param df: DataFrame containing the dataset with "Pick_time(min)" column.
+    :return: Dictionary containing the calculated metrics.
+    """
     metrics = {}
+    metrics["Pick_time_max"] = df["Pick_time(min)"].max()
+    metrics["Pick_time_min"] = df["Pick_time(min)"].min()
+    metrics["Pick_time_mean"] = df["Pick_time(min)"].mean()
+    metrics["Pick_time_std_dev"] = df["Pick_time(min)"].std()
+    return metrics
 
 def get_mean_ratings_by_service(df: pd.DataFrame):
     """
@@ -75,6 +92,91 @@ def get_mean_ratings_by_service(df: pd.DataFrame):
     """
     df = df[["Delivery_service_ID", "Delivery_person_Ratings"]].groupby("Delivery_service_ID").mean().round(2).sort_values(by="Delivery_person_Ratings", ascending=False).rename(columns={"Delivery_person_Ratings": "Mean_rating"}).reset_index()
     df.index = df.index +1
+    return df
+
+def get_means_ratings_by_traffic(df: pd.DataFrame):
+    """
+    This function processes the DataFrame to calculate the mean and standard deviation of delivery person ratings
+    for each traffic density category. It groups the data by traffic density, computes the mean and standard deviation
+    of ratings for each category, and then resets the index for better readability.
+
+    :param df: DataFrame containing the dataset with "Delivery_person_Ratings" and "Road_traffic_density" columns.
+    :return: DataFrame with the mean and standard deviation of delivery person ratings for each traffic density category.
+    """
+    df = df[["Delivery_person_Ratings", "Road_traffic_density"]].groupby("Road_traffic_density").agg({"Delivery_person_Ratings": ["mean", "std"]})
+    df.columns = ["Mean_Rating", "Std_Rating"]
+    df.reset_index(inplace=True)
+    df.index = df.index +1
+    return df
+
+def get_mean_ratings_by_weather(df: pd.DataFrame):
+    """
+    This function processes the DataFrame to calculate the mean and standard deviation of delivery person ratings
+    for each weather condition category. It groups the data by weather condition, computes the mean and standard deviation
+    of ratings for each category, and then resets the index for better readability.
+
+    :param df: DataFrame containing the dataset with "Delivery_person_Ratings" and "Weatherconditions" columns.
+    :return: DataFrame with the mean and standard deviation of delivery person ratings for each weather condition category.
+    """
+    df = df[["Delivery_person_Ratings", "Weatherconditions"]].groupby("Weatherconditions").agg({"Delivery_person_Ratings": ["mean", "std"]})
+    df.columns = ["Mean_Rating", "Std_Rating"]
+    df.reset_index(inplace=True)
+    df.index = df.index +1
+    return df
+
+def get_top_10_fastest_deliveries(df: pd.DataFrame, reverse: bool=False):
+    """
+    This function processes the DataFrame to calculate the mean velocity for each delivery person,
+    sorts the results by velocity in either ascending or descending order based on the 'reverse' parameter,
+    and returns the top 10 fastest delivery persons. 
+    This means that if the reverse parameter is set to "True", the function will return the top 10 slowest delivery persons.
+
+    :param df: DataFrame containing the dataset with "Delivery_person_ID" and "Velocity(km/h)" columns.
+    :param reverse: Boolean flag to determine the sorting order. If True, sorts in ascending order; if False, sorts in descending order.
+    :return: DataFrame with the top 10 delivery persons sorted by their mean velocity.
+    """
+    df = df[["Delivery_service_ID", "Velocity(km/h)"]].groupby("Delivery_service_ID").mean().sort_values("Velocity(km/h)", ascending=reverse).reset_index()
+    df = df.head(10).reset_index(drop=True)
+    df.index = df.index +1
+    return df
+
+def get_mean_pick_time_by_city(df: pd.DataFrame):
+    """
+    This function processes the DataFrame to calculate the mean and standard deviation of pick-up times
+    for each city. It groups the data by city, computes the mean and standard deviation of pick-up times
+    for each city, and then resets the index for better readability.
+
+    :param df: DataFrame containing the dataset with "Pick_time(min)" and "City" columns.
+    :return: DataFrame with the mean and standard deviation of pick-up times for each city.
+    """
+    df = df[["Pick_time(min)", "City"]].groupby("City").agg(["mean", "std"]).reset_index()
+    df.columns = ["City", "Mean_time", "Std_time"]
+    return df
+
+def get_mean_pick_time_by_order(df: pd.DataFrame):
+    """
+    This function processes the DataFrame to calculate the mean and standard deviation of pick-up times
+    for each type of order. It groups the data by order type, computes the mean and standard deviation of
+    pick-up times for each type, and then resets the index for better readability.
+
+    :param df: DataFrame containing the dataset with "Pick_time(min)" and "Type_of_order" columns.
+    :return: DataFrame with the mean and standard deviation of pick-up times for each type of order.
+    """
+    df = df[["Pick_time(min)", "Type_of_order"]].groupby(["Type_of_order"]).agg(["mean", "std"]).reset_index()
+    df.columns = ["Type_of_order", "Mean_time", "Std_time"]
+    return df
+
+def get_mean_pick_time_by_traffic(df: pd.DataFrame):
+    """
+    This function processes the DataFrame to calculate the mean and standard deviation of pick-up times
+    for each traffic density category. It groups the data by traffic density, computes the mean and standard deviation
+    of pick-up times for each category, and then resets the index for better readability.
+
+    :param df: DataFrame containing the dataset with "Pick_time(min)" and "Road_traffic_density" columns.
+    :return: DataFrame with the mean and standard deviation of pick-up times for each traffic density category.
+    """
+    df = df[["Pick_time(min)", "Road_traffic_density"]].groupby(["Road_traffic_density"]).agg(["mean", "std"]).reset_index()
+    df.columns = ["Road_traffic_density", "Mean_time", "Std_time"]
     return df
 
 def plot_histogram(df: pd.DataFrame):
@@ -265,7 +367,22 @@ def plot_restaurant_locations(df: pd.DataFrame):
         """
         folium.Marker(location_info["Restaurant_location"], popup=folium.Popup(popup_html, max_width=350)).add_to(fig)
     return fig
-        
+
+def plot_orders_heatmap(df: pd.DataFrame):
+    """
+    This function processes the DataFrame to filter out invalid delivery locations (those with coordinates
+    less than 1 in either latitude or longitude, mostly being [0, 0], known as "Null island"). It then
+    extracts the valid delivery locations and plots them on a Folium map using a heatmap. The heatmap
+    visualizes the density of delivery locations.
+
+    :param df: DataFrame containing the dataset with "Delivery_location" column.
+    :return: Folium map object with a heatmap showing the density of delivery locations.
+    """
+    df = df[df["Delivery_location"].apply(lambda loc: loc[0] >= 1 and loc[1] >= 1)]["Delivery_location"].to_numpy()
+    fig = folium.Map(location=(20.904992, 79.417227), zoom_start=5)
+    HeatMap(data=df, radius=20).add_to(fig)
+    return fig
+
 def plot_deliveries_by_age(df: pd.DataFrame):
     """
     This function processes the DataFrame to count the number of deliveries for each delivery person age,
@@ -296,23 +413,3 @@ def plot_deliveries_by_vehicle_condition(df: pd.DataFrame):
         xaxis={"title_font": {"size": 18}, "showgrid": True, "tickmode": "array", "tickvals": x_values, "ticktext": ["muito ruim", "ruim", "bom", "muito bom"]},
         yaxis={"title_font": {"size": 18}, "showgrid": True, "type": "log"})
     return fig
-    
-# fig10 = df_clear[["Delivery_person_Ratings", "Road_traffic_density"]].groupby("Road_traffic_density").agg({"Delivery_person_Ratings": ["mean", "std"]})
-# fig10.columns = ["Mean_Rating", "Std_Rating"]
-# fig10.reset_index(inplace=True)
-# fig10.index = fig10.index +1
-# fig11 = df_clear[["Delivery_person_Ratings", "Weatherconditions"]].groupby("Weatherconditions").agg({"Delivery_person_Ratings": ["mean", "std"]})
-# fig11.columns = ["Mean_Rating", "Std_Rating"]
-# fig11.reset_index(inplace=True)
-# fig11.index = fig11.index +1
-# fig12 = df_clear[["Delivery_person_ID", "Velocity(km/h)"]].groupby("Delivery_person_ID").mean().sort_values("Velocity(km/h)", ascending=False).reset_index()
-# fig12 = fig12.head(10).reset_index(drop=True)
-# fig12.index = fig12.index +1
-# fig13 = df_clear[["Delivery_person_ID", "Velocity(km/h)"]].groupby("Delivery_person_ID").mean().sort_values("Velocity(km/h)").reset_index()
-# fig13 = fig13.head(10).reset_index(drop=True)
-# fig13.index = fig13.index +1
-# 
-
-# df_aux = df_clear[df_clear["Delivery_location"].apply(lambda loc: loc[0] >= 1 and loc[1] >= 1)]["Delivery_location"].to_numpy()
-# fig15 = folium.Map(location=(20.904992, 79.417227), zoom_start=5)
-# HeatMap(data=df_aux, radius=20).add_to(fig15)
