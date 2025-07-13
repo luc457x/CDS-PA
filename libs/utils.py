@@ -57,9 +57,10 @@ def clear_data(df):
     19. Fills NaN values in "Time_Ordered" with the median "Time_to_pick".
     20. Calculates the "Distance(km)" between "Restaurant_location" and "Delivery_location" using the Haversine formula.
     21. Calculates the "Velocity(km/h)" based on "Distance(km)" and "Time_taken(min)".
-    22. Renames the "Delivery_Person_ID" column to "Delivery_service_ID".
-    23. Drop "multiple_deliveries" column.
-    24. Reorders the columns to a specified order.
+    22. Calculates "Prepare_time(min)" based on "Time_Ordered" and "Time_Order_picked".
+    23. Renames the "Delivery_Person_ID" column to "Delivery_service_ID".
+    24. Drop "multiple_deliveries" column.
+    25. Reorders the columns to a specified order.
 
     :param df: DataFrame to be cleaned and preprocessed.
     :return: Cleaned and preprocessed DataFrame.
@@ -105,11 +106,10 @@ def clear_data(df):
     df["Time_Ordered"] = df["Time_Ordered"].fillna(df["Time_Order_picked"] - pd.to_timedelta(df_times_grouped.loc[0, ("Time_to_pick", "median")], unit="m"))
     df["Distance(km)"] = df.apply(lambda x: haversine(x["Restaurant_location"], x["Delivery_location"]), axis=1)
     df["Velocity(km/h)"] = df["Distance(km)"] / (df["Time_taken(min)"] / 60)
+    df["Pick_time(min)"] = ((df["Time_Order_picked"] - df["Time_Ordered"]).dt.total_seconds() / 60).astype(int)
     df.rename(columns={"Delivery_person_ID": "Delivery_service_ID"}, inplace=True)
     df.drop(columns=["multiple_deliveries"], inplace=True)
-    df["Distance(km)"] = df.apply(lambda x: haversine(x["Restaurant_location"], x["Delivery_location"]), axis=1)
-    df["Velocity(km/h)"] = df["Distance(km)"] / (df["Time_taken(min)"] / 60)
-    df = df[["ID", "Delivery_service_ID", "Delivery_person_Age", "Delivery_person_Ratings", "Type_of_order", "Time_Ordered", "Time_Order_picked", "Time_Order_delivered", "Time_taken(min)", "Type_of_vehicle", "Vehicle_condition", "City", "Road_traffic_density", "Weatherconditions", "Festival", "Restaurant_location", "Delivery_location","Distance(km)", "Velocity(km/h)"]]
+    df = df[["ID", "Delivery_service_ID", "Delivery_person_Age", "Delivery_person_Ratings", "Type_of_order", "Time_Ordered", "Time_Order_picked", "Pick_time(min)", "Time_Order_delivered", "Time_taken(min)", "Type_of_vehicle", "Vehicle_condition", "City", "Road_traffic_density", "Weatherconditions", "Festival", "Restaurant_location", "Delivery_location","Distance(km)", "Velocity(km/h)"]]
     df.to_csv("./data/dataset_clear.csv", index=False)
     return df
 
