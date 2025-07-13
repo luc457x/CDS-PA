@@ -1,6 +1,10 @@
 import builtins
-from .utils import pd, np, px, ps, folium, haversine, clear_data, load_dataset, check_outliers, plot_histogram, plot_correlation
-__all__ = ["pd", "np"]
+from .utils import pd, np, haversine, clear_data, load_dataset, check_outliers
+from .metrics import (
+    get_metrics_company, get_metrics_deliveries, get_metrics_restaurants, plot_histogram, plot_correlation, plot_orders_per_week, 
+    plot_orders_per_day, plot_orders_by_traffic, 
+    plot_orders_by_traffic_and_city_type, plot_weekly_orders_per_service, plot_central_delivery_locations, plot_restaurant_locations, plot_deliveries_by_age, plot_deliveries_by_vehicle_condition, 
+    get_mean_ratings_by_service
+    )
 
-for lib in __all__:
-    setattr(builtins, lib, eval(lib))
+__all__ = ["pd"]

@@ -48,117 +48,12 @@ traffic_options = st.sidebar.multiselect("Traffic conditions:", ["Low", "Medium"
 city_options = st.sidebar.multiselect("City types:", ["Metropolitan", "Urban", "Semi-Urban", "Unknown"], default=[])
 festival_options = st.sidebar.multiselect("During festivals:", ["Yes", "No", "Unknown"], default=[])
 # Filters
-df_clear = df_clear[(df_clear["Time_Ordered"].dt.date >= date_init) & (df_clear["Time_Ordered"].dt.date <= date_end)]
+df_clear = df_clear[(pd.to_datetime(df_clear["Time_Ordered"]).dt.date >= date_init) & (pd.to_datetime(df_clear["Time_Ordered"]).dt.date <= date_end)]
 df_clear = df_clear[(df_clear["Delivery_person_Age"] >= age_min) & (df_clear["Delivery_person_Age"] <= age_max)]
 if traffic_options: df_clear = df_clear[df_clear["Road_traffic_density"].isin(traffic_options)]
 if city_options: df_clear = df_clear[df_clear["City"].isin(city_options)]
 if festival_options: df_clear = df_clear[df_clear["Festival"].isin(festival_options)]
 ## Main page
-# graphs & Metrics
-df_clear["Day_Ordered"] = pd.to_datetime(df_clear["Time_Ordered"]).dt.date
-df = df_clear[["ID", "Day_Ordered"]].groupby("Day_Ordered").count().reset_index()
-df = df[["Day_Ordered", "ID"]].pivot_table(index="Day_Ordered", aggfunc="sum").reset_index()
-fig01 = px.bar(df, x="Day_Ordered", y="ID", title="Daily orders", labels={"Day_Ordered": "Date", "ID": "Quantity"})
-fig01.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-    xaxis={"title_font": {"size": 18}, "showgrid": True},
-    yaxis={"title_font": {"size": 18}, "showgrid": True})
-df_clear["Week_Ordered"] = pd.to_datetime(df_clear["Day_Ordered"]).dt.strftime("%W").astype(int)
-df = df_clear[["Week_Ordered", "ID"]].pivot_table(index="Week_Ordered", aggfunc="count").reset_index()
-all_weeks = pd.DataFrame({"Week_Ordered": range(df["Week_Ordered"].min(), df["Week_Ordered"].max() + 1)})
-df = pd.merge(all_weeks, df, on="Week_Ordered", how="left").fillna(0)
-fig02 = px.line(df, x="Week_Ordered", y="ID", title="Weekly orders", labels={"Week_Ordered": "Week of the year", "ID": "Quantity"}, markers=True)
-fig02.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-    xaxis={"title_font": {"size": 18}, "showgrid": True},
-    yaxis={"title_font": {"size": 18}, "showgrid": True})
-metric01 = df["ID"].sum()
-metric02 = df["ID"].max()
-metric03 = df["ID"].min()
-metric04 = df["ID"].mean()
-metric05 = df["ID"].std()
-metric06 = df["ID"].diff().mean()
-df = df_clear[["ID", "Road_traffic_density"]].groupby("Road_traffic_density").count().reset_index()
-df["percent"] = df["ID"] / df["ID"].sum()
-fig03 = px.pie(df, values="percent", names="Road_traffic_density", title="Orders distribution by traffic density")
-fig03.update_layout(width=700, height=600,
-    title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-    legend={"font": {"size": 18}})
-df = df_clear[["ID", "City", "Road_traffic_density"]].groupby(["City", "Road_traffic_density"]).count().reset_index()
-fig04 = px.bar(df, x="City", y="ID", color="Road_traffic_density", title="Orders by city type grouped by traffic density", labels={"City": "City type", "ID": "Quantity", "Road_traffic_density": "Traffic"}, barmode="stack", log_y=True)
-fig04.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-    xaxis={"title_font": {"size": 18}, "showgrid": True},
-    yaxis={"title_font": {"size": 18}, "showgrid": True})
-df_aux = df_clear.groupby(["Week_Ordered", "Delivery_person_ID"]).size().reset_index(name="ID_Count")
-df_aux = df_aux.groupby("Week_Ordered").agg({"ID_Count": "sum", "Delivery_person_ID": "nunique"}).reset_index()
-df_aux["Order_by_delivery"] = df_aux["ID_Count"] / df_aux["Delivery_person_ID"]
-df_aux = pd.merge(all_weeks, df_aux, on="Week_Ordered", how="left").fillna(0)
-fig05 = px.line(df_aux, x="Week_Ordered", y="Order_by_delivery", title="Average weekly orders by delivery service", labels={"Week_Ordered": "Week of the year", "Order_by_delivery": "Average orders", "ID_Count": "Total orders", "Delivery_person_ID": "Actively delivery services"}, markers=True, hover_data=["ID_Count", "Delivery_person_ID"])
-fig05.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-    xaxis={"title_font": {"size": 18}, "showgrid": True},
-    yaxis={"title_font": {"size": 18}, "showgrid": True})
-df_aux = df_clear[["City", "Road_traffic_density", "Delivery_location"]].copy()
-df_aux[["Delivery_location_x", "Delivery_location_y"]] = pd.DataFrame(df_aux["Delivery_location"].tolist(), index=df_aux.index)
-df_aux = df_aux.drop(columns=["Delivery_location"])
-df_aux = df_aux.groupby(["City", "Road_traffic_density"]).median().reset_index()
-df_aux["Delivery_location"] = list(zip(df_aux["Delivery_location_x"], df_aux["Delivery_location_y"]))
-df_aux = df_aux.drop(columns=["Delivery_location_x", "Delivery_location_y"])
-df_aux = df_aux[df_aux["Delivery_location"].apply(lambda loc: loc[0] >= 1 and loc[1] >= 1)]
-fig06 = folium.Map(location=(20.904992, 79.417227), zoom_start=5)
-for index, location_info in df_aux.iterrows():
-    popup_html = f"""
-    <div style="max-width: 150px">
-        {location_info["Delivery_location"][0]}° N, {location_info["Delivery_location"][1]}° W<br>
-        City type: {location_info['City']}<br>
-        Traffic: {location_info['Road_traffic_density']}
-    </div>
-    """
-    folium.Marker(location_info["Delivery_location"], popup=folium.Popup(popup_html, max_width=350)).add_to(fig06)
-df_aux = df_clear[["Delivery_person_ID", "Delivery_person_Age"]].groupby("Delivery_person_Age").nunique().reset_index().sort_values(by="Delivery_person_Age")
-fig07 = px.bar(df_aux, x="Delivery_person_Age", y="Delivery_person_ID", title="Number of delivery workers by age", labels={"Delivery_person_Age": "Age", "Delivery_person_ID": "Quantity"})
-fig07.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-    xaxis={"title_font": {"size": 18}, "showgrid": True},
-    yaxis={"title_font": {"size": 18}, "showgrid": True})
-df_aux = df_clear[["Delivery_person_ID", "Vehicle_condition"]].groupby("Vehicle_condition").nunique().reset_index().sort_values(by="Vehicle_condition")
-x_values = df_aux["Vehicle_condition"].unique()
-fig08 = px.bar(df_aux, x="Vehicle_condition", y="Delivery_person_ID", title="Number of vehicles by condition", labels={"Vehicle_condition": "Condition", "Delivery_person_ID": "Quantity"})
-fig08.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-    xaxis={"title_font": {"size": 18}, "showgrid": True, "tickmode": "array", "tickvals": x_values, "ticktext": ["muito ruim", "ruim", "bom", "muito bom"]},
-    yaxis={"title_font": {"size": 18}, "showgrid": True, "type": "log"})
-fig09 = df_clear[["Delivery_person_ID", "Delivery_person_Ratings"]].groupby("Delivery_person_ID").mean().sort_values(by="Delivery_person_Ratings", ascending=False).rename(columns={"Delivery_person_Ratings": "Mean_rating"}).reset_index()
-fig09.index = fig09.index +1
-fig09["Mean_rating"] = fig09["Mean_rating"].round(2)
-fig10 = df_clear[["Delivery_person_Ratings", "Road_traffic_density"]].groupby("Road_traffic_density").agg({"Delivery_person_Ratings": ["mean", "std"]})
-fig10.columns = ["Mean_Rating", "Std_Rating"]
-fig10.reset_index(inplace=True)
-fig10.index = fig10.index +1
-fig11 = df_clear[["Delivery_person_Ratings", "Weatherconditions"]].groupby("Weatherconditions").agg({"Delivery_person_Ratings": ["mean", "std"]})
-fig11.columns = ["Mean_Rating", "Std_Rating"]
-fig11.reset_index(inplace=True)
-fig11.index = fig11.index +1
-fig12 = df_clear[["Delivery_person_ID", "Velocity(km/h)"]].groupby("Delivery_person_ID").mean().sort_values("Velocity(km/h)", ascending=False).reset_index()
-fig12 = fig12.head(10).reset_index(drop=True)
-fig12.index = fig12.index +1
-fig13 = df_clear[["Delivery_person_ID", "Velocity(km/h)"]].groupby("Delivery_person_ID").mean().sort_values("Velocity(km/h)").reset_index()
-fig13 = fig13.head(10).reset_index(drop=True)
-fig13.index = fig13.index +1
-fig14 = folium.Map(location=(20.904992, 79.417227), zoom_start=5)
-df_aux = df_clear[df_clear["Restaurant_location"].apply(lambda loc: loc[0] >= 1 and loc[1] >= 1)]
-df_aux = df_clear[["ID", "Restaurant_location"]].groupby("Restaurant_location").count().reset_index()
-for index, location_info in df_aux.iterrows():
-    popup_html = f"""
-    <div style="max-width: 150px">
-        {location_info['Restaurant_location'][0]}° N, {location_info['Restaurant_location'][1]}° W<br>
-        Number of deliveries: {location_info['ID']}
-    </div>
-    """
-    folium.Marker(location_info["Restaurant_location"], popup=folium.Popup(popup_html, max_width=350)).add_to(fig14)
-metric07 = df_aux["Restaurant_location"].nunique()
-metric08 = df_aux["ID"].mean()
-df_aux = df_clear[["Delivery_person_ID", "ID"]].groupby("Delivery_person_ID").count().reset_index()
-metric09 = df_aux["Delivery_person_ID"].nunique()
-metric10 = df_aux["ID"].mean()
-df_aux = df_clear[df_clear["Delivery_location"].apply(lambda loc: loc[0] >= 1 and loc[1] >= 1)]["Delivery_location"].to_numpy()
-fig15 = folium.Map(location=(20.904992, 79.417227), zoom_start=5)
-HeatMap(data=df_aux, radius=20).add_to(fig15)
 # body
 def viz1():
     tab1, tab2, tab3 = st.tabs(["Gerencial", "Tático", "Geográfico"], )

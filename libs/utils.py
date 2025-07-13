@@ -1,8 +1,5 @@
 import pandas as pd
 import numpy as np
-import plotly.express as px
-import plotly.subplots as ps
-import folium
 from haversine import haversine
 
 pd.set_option("display.max_columns", None)
@@ -35,54 +32,6 @@ def check_outliers(df, bounds=1.5):
     # Concatenate all outliers identified
     df_outliers = pd.concat(outliers_list).drop_duplicates().reset_index(drop=True)
     return df_outliers
-
-def plot_histogram(df):
-    """
-    Plot a histogram for each numerical value in the given DataFrame.
-    
-    :param df: DataFrame to be analyzed.
-    :return:Plotly figure object with histograms for each numerical column in the DataFrame.
-    """
-    numeric_columns = df.select_dtypes(include=[np.number]).columns
-    nrows = int(np.ceil(np.sqrt(len(numeric_columns))))
-    ncols = int(np.ceil(len(numeric_columns) / nrows))
-    fig = ps.make_subplots(rows=nrows, cols=ncols, subplot_titles=numeric_columns)
-    for i, column in enumerate(numeric_columns):
-        row_idx = (i // ncols) + 1
-        col_idx = (i % ncols) + 1
-        fig.add_trace(px.histogram(df, x=column).data[0], row=row_idx, col=col_idx)
-    fig.update_layout(title={"text": "Numeric Columns", "x": 0.5, "xanchor": "center", "font": {"size": 24}},
-    xaxis={"title_font": {"size": 18}, "showgrid": True},
-    yaxis={"title_font": {"size": 18}, "showgrid": True})
-    return fig
-
-def plot_correlation(df):
-    """
-    Plot a correlation matrix for the given DataFrame.
-    
-    :param df: DataFrame to be analysed.
-    :return: Plotly figure object with the correlation matrix plot.
-    """
-    correlation_matrix = df.select_dtypes(include=[np.number]).corr()
-    fig = px.imshow(correlation_matrix,
-                    title="Correlation Matrix",
-                    labels={"x": "Features", "y": "Features"},
-                    range_color=(-1, 1),
-                    color_continuous_scale="RdBu")
-    for i in range(len(correlation_matrix)):
-        for j in range(len(correlation_matrix.columns)):
-            fig.add_annotation(
-                text=str(round(correlation_matrix.iat[i, j], 2)),
-                x=i,
-                y=j,
-                showarrow=False,
-                font=dict(color="black")
-            )
-    fig.update_layout(coloraxis_showscale=True, coloraxis_cmin=-1, coloraxis_cmax=1,
-                    title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-                    xaxis={"title_font": {"size": 18}, "showgrid": True},
-                    yaxis={"title_font": {"size": 18}, "showgrid": True})
-    return fig
 
 def clear_data(df):
     """
@@ -158,11 +107,20 @@ def clear_data(df):
     df["Velocity(km/h)"] = df["Distance(km)"] / (df["Time_taken(min)"] / 60)
     df.rename(columns={"Delivery_person_ID": "Delivery_service_ID"}, inplace=True)
     df.drop(columns=["multiple_deliveries"], inplace=True)
-    df = df[["ID", "Delivery_service_ID", "Delivery_person_Age", "Delivery_person_Ratings", "Type_of_order", "Time_Ordered", "Time_Order_picked", "Time_Order_delivered", "Time_taken(min)", "Type_of_vehicle", "Vehicle_condition", "City", "Road_traffic_density", "Weatherconditions", "Festival", "Restaurant_location", "Delivery_location"]]
+    df["Distance(km)"] = df.apply(lambda x: haversine(x["Restaurant_location"], x["Delivery_location"]), axis=1)
+    df["Velocity(km/h)"] = df["Distance(km)"] / (df["Time_taken(min)"] / 60)
+    df = df[["ID", "Delivery_service_ID", "Delivery_person_Age", "Delivery_person_Ratings", "Type_of_order", "Time_Ordered", "Time_Order_picked", "Time_Order_delivered", "Time_taken(min)", "Type_of_vehicle", "Vehicle_condition", "City", "Road_traffic_density", "Weatherconditions", "Festival", "Restaurant_location", "Delivery_location","Distance(km)", "Velocity(km/h)"]]
     df.to_csv("./data/dataset_clear.csv", index=False)
     return df
 
 def load_dataset():
+    """
+    Loads the dataset from a CSV file. If the cleaned dataset is not found,
+    it loads the raw dataset, cleans it using the `clear_data` function,
+    and saves the cleaned dataset to a CSV file.
+    Returns:
+        pd.DataFrame: The loaded and possibly cleaned dataset.
+    """
     try:
         df = pd.read_csv("./data/dataset_clear.csv")
     except FileNotFoundError:
