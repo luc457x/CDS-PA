@@ -275,7 +275,7 @@ def plot_orders_by_traffic(df: pd.DataFrame):
     df = df[["ID", "Road_traffic_density"]].groupby("Road_traffic_density").count().reset_index()
     df["percent"] = df["ID"] / df["ID"].sum()
     fig = px.pie(df, values="percent", names="Road_traffic_density", title="Orders distribution by traffic density")
-    fig.update_layout(width=700, height=600,
+    fig.update_layout(width=700, height=500,
         title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
         legend={"font": {"size": 18}})
     return fig
@@ -331,7 +331,7 @@ def plot_central_delivery_locations(df: pd.DataFrame):
     df = df.groupby(["City", "Road_traffic_density"]).median().reset_index()
     df["Delivery_location"] = list(zip(df["Delivery_location_x"], df["Delivery_location_y"]))
     df = df.drop(columns=["Delivery_location_x", "Delivery_location_y"])
-    df = df[df["Delivery_location"].apply(lambda loc: loc[0] >= 1 and loc[1] >= 1)]
+    df = df[df["Delivery_location"].apply(lambda loc: float(loc[0]) >= 1 and float(loc[1]) >= 1)]
     fig = folium.Map(location=(20.904992, 79.417227), zoom_start=5)
     for index, location_info in df.iterrows():
         popup_html = f"""
@@ -355,7 +355,7 @@ def plot_restaurant_locations(df: pd.DataFrame):
     :param df: DataFrame containing the dataset with "ID" and "Restaurant_location" columns.
     :return: Folium map object with markers showing the number of deliveries from each restaurant location.
     """
-    df = df[df["Restaurant_location"].apply(lambda loc: loc[0] >= 1 and loc[1] >= 1)]
+    df = df[df["Restaurant_location"].apply(lambda loc: float(loc[0]) >= 1 and float(loc[1]) >= 1)]
     df = df[["ID", "Restaurant_location"]].groupby("Restaurant_location").count().reset_index()
     fig = folium.Map(location=(20.904992, 79.417227), zoom_start=5)
     for index, location_info in df.iterrows():
