@@ -61,6 +61,7 @@ def clear_data(df):
     23. Renames the "Delivery_Person_ID" column to "Delivery_service_ID".
     24. Drop "multiple_deliveries" column.
     25. Reorders the columns to a specified order.
+    26. Saves the cleaned DataFrame to a pickle file.
 
     :param df: DataFrame to be cleaned and preprocessed.
     :return: Cleaned and preprocessed DataFrame.
@@ -110,19 +111,19 @@ def clear_data(df):
     df.rename(columns={"Delivery_person_ID": "Delivery_service_ID"}, inplace=True)
     df.drop(columns=["multiple_deliveries"], inplace=True)
     df = df[["ID", "Delivery_service_ID", "Delivery_person_Age", "Delivery_person_Ratings", "Type_of_order", "Time_Ordered", "Time_Order_picked", "Pick_time(min)", "Time_Order_delivered", "Time_taken(min)", "Type_of_vehicle", "Vehicle_condition", "City", "Road_traffic_density", "Weatherconditions", "Festival", "Restaurant_location", "Delivery_location","Distance(km)", "Velocity(km/h)"]]
-    df.to_csv("./data/dataset_clear.csv", index=False)
+    df.to_pickle("./data/dataset_clear.pkl")
     return df
 
 def load_dataset():
     """
     Loads the dataset from a CSV file. If the cleaned dataset is not found,
     it loads the raw dataset, cleans it using the `clear_data` function,
-    and saves the cleaned dataset to a CSV file.
+    and saves the cleaned dataset to a pickle file.
     Returns:
         pd.DataFrame: The loaded and possibly cleaned dataset.
     """
     try:
-        df = pd.read_csv("./data/dataset_clear.csv")
+        df = pd.read_pickle("./data/dataset_clear.pkl")
     except FileNotFoundError:
         df = pd.read_csv("./data/dataset_raw.csv")
         df = clear_data(df)
