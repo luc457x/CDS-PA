@@ -8,12 +8,16 @@ with open("./css/styles.css") as css:
 ## Sidebar
 col1, col2, col3, col4 = st.sidebar.columns([0.5, 3, 2, 0.5])
 with col2:
-    img = Image.open("./img/logo.png")
-    st.image(img, width=180)
+    curry_comp_logo = Image.open("./img/logo.png")
+    st.image(curry_comp_logo, width=180)
 with col3:
     st.markdown("# Curry Company")
     st.markdown("### Fastest in Town")
 st.sidebar.markdown("""---""")
+col1, col2, col3 = st.sidebar.columns([0.75, 2, 1])
+with col2:
+    lucas7x_logo = Image.open("./img/lucas7x.png")
+    st.image(lucas7x_logo, width=180)
 st.sidebar.write(
     """
     Ask for Help
@@ -25,19 +29,20 @@ st.sidebar.write(
     )
 ## Main page
 # body
-st.write("<h1>Curry Company Growth Dashboard</h1>", unsafe_allow_html=True)
+st.title("Curry Company Growth Dashboard")
 st.write(
     """
-    Este Growth Dashboard foi construído para acompanhar as métricas de crescimento da companhia Curry Company, plataforma digital que une Entregadores e Restaurantes.
-    Como utilizar esse Growth Dashboard?
-    - Visão Empresa:
-        - Visão Tática: Indicadores semanais de crescimento.
-        - Visão Gerencial: Métricas gerais de comportamento.
-        - Visão Geográfica: Insights de geolocalização.
-    - Visão Entregador:
-        - Metricas relevantes para acompanhar a performance dos entregadores.
-    - Visão Restaurante:
-        - Metricas relevantes para acompanhar a performance dos restaurantes.
+    This Growth Dashboard was built to track the growth metrics of Curry Company, a digital platform that connects Delivery Services and Restaurants.
+
+    What this Growth Dashboard shows?
+    - **Company View**:
+        - Tactical View: Weekly growth indicators.
+        - Managerial View: General behavior metrics.
+        - Geographical View: Geolocation insights.
+    - **Delivery Person View**:
+        - Relevant metrics to track the performance of delivery services.
+    - **Restaurant View**:
+        - Relevant metrics to track the performance of restaurants.
     """
 )
 st.markdown("""---""")
