@@ -1,4 +1,4 @@
-from .utils import pd, np, haversine
+from .utils import pd, np, stringfy_time
 import plotly.express as px
 import plotly.subplots as ps
 import folium
@@ -49,6 +49,7 @@ def get_metrics_deliveries(df: pd.DataFrame):
     - Maximum delivery person rating.
     - Mean delivery person rating.
     - Standard deviation of delivery person ratings.
+    - Maximum delivery distance.
     - Mean delivery distance.
 
     :param df: DataFrame containing the dataset with "Delivery_person_Ratings" column.
@@ -58,8 +59,13 @@ def get_metrics_deliveries(df: pd.DataFrame):
     metrics["ratings_min"] = df["Delivery_person_Ratings"].min()
     metrics["ratings_max"] = df["Delivery_person_Ratings"].max()
     metrics["ratings_mean"] = df["Delivery_person_Ratings"].mean()
+    metrics["ratings_median"] = df["Delivery_person_Ratings"].median()
     metrics["ratings_std_dev"] = df["Delivery_person_Ratings"].std()
-    metrics["mean_delivery_distance"] = df.apply(lambda x: haversine(x["Restaurant_location"], x["Delivery_location"]), axis=1).mean()
+    metrics["delivery_distance_mean"] = df["Distance(km)"].mean()
+    metrics["delivery_time_max"] = stringfy_time(df["Time_taken(min)"].max())
+    metrics["delivery_time_min"] = stringfy_time(df["Time_taken(min)"].min())
+    metrics["delivery_time_mean"] = stringfy_time(df["Time_taken(min)"].mean())
+    metrics["delivery_time_std_dev"] = stringfy_time(df["Time_taken(min)"].std())
     return metrics
 
 def get_metrics_restaurants(df: pd.DataFrame):
@@ -74,10 +80,10 @@ def get_metrics_restaurants(df: pd.DataFrame):
     :return: Dictionary containing the calculated metrics.
     """
     metrics = {}
-    metrics["Pick_time_max"] = df["Pick_time(min)"].max()
-    metrics["Pick_time_min"] = df["Pick_time(min)"].min()
-    metrics["Pick_time_mean"] = df["Pick_time(min)"].mean()
-    metrics["Pick_time_std_dev"] = df["Pick_time(min)"].std()
+    metrics["Pick_time_max"] = stringfy_time(df["Pick_time(min)"].max())
+    metrics["Pick_time_min"] = stringfy_time(df["Pick_time(min)"].min())
+    metrics["Pick_time_mean"] = stringfy_time(df["Pick_time(min)"].mean())
+    metrics["Pick_time_std_dev"] = stringfy_time(df["Pick_time(min)"].std())
     return metrics
 
 def get_mean_ratings_by_service(df: pd.DataFrame):
@@ -151,6 +157,7 @@ def get_mean_pick_time_by_city(df: pd.DataFrame):
     """
     df = df[["Pick_time(min)", "City"]].groupby("City").agg(["mean", "std"]).reset_index()
     df.columns = ["City", "Mean_time", "Std_time"]
+    df[["Mean_time", "Std_time"]] = stringfy_time(df[["Mean_time", "Std_time"]])
     return df
 
 def get_mean_pick_time_by_order(df: pd.DataFrame):
@@ -164,6 +171,7 @@ def get_mean_pick_time_by_order(df: pd.DataFrame):
     """
     df = df[["Pick_time(min)", "Type_of_order"]].groupby(["Type_of_order"]).agg(["mean", "std"]).reset_index()
     df.columns = ["Type_of_order", "Mean_time", "Std_time"]
+    df[["Mean_time", "Std_time"]] = stringfy_time(df[["Mean_time", "Std_time"]])
     return df
 
 def get_mean_pick_time_by_traffic(df: pd.DataFrame):
@@ -177,6 +185,7 @@ def get_mean_pick_time_by_traffic(df: pd.DataFrame):
     """
     df = df[["Pick_time(min)", "Road_traffic_density"]].groupby(["Road_traffic_density"]).agg(["mean", "std"]).reset_index()
     df.columns = ["Road_traffic_density", "Mean_time", "Std_time"]
+    df[["Mean_time", "Std_time"]] = stringfy_time(df[["Mean_time", "Std_time"]])
     return df
 
 def plot_histogram(df: pd.DataFrame):
@@ -199,32 +208,30 @@ def plot_histogram(df: pd.DataFrame):
     yaxis={"title_font": {"size": 18}, "showgrid": True})
     return fig
 
-def plot_correlation(df: pd.DataFrame):
-    """
-    Plot a correlation matrix for the given DataFrame.
-    
-    :param df: DataFrame to be analysed.
-    :return: Plotly figure object with the correlation matrix plot.
-    """
-    correlation_matrix = df.select_dtypes(include=[np.number]).corr()
+def plot_correlation(df: pd.DataFrame, wid: int = 600, hei: int = 800):
+    correlation_matrix = df.select_dtypes(include=[np.number, bool]).corr()
     fig = px.imshow(correlation_matrix,
                     title="Correlation Matrix",
                     labels={"x": "Features", "y": "Features"},
                     range_color=(-1, 1),
                     color_continuous_scale="RdBu")
+    annotations = []
     for i in range(len(correlation_matrix)):
         for j in range(len(correlation_matrix.columns)):
-            fig.add_annotation(
-                text=str(round(correlation_matrix.iat[i, j], 2)),
-                x=i,
-                y=j,
-                showarrow=False,
-                font=dict(color="black")
+            annotations.append(
+                dict(
+                    text=str(round(correlation_matrix.iat[i, j], 2)),
+                    x=i,
+                    y=j,
+                    showarrow=False,
+                    font=dict(color="black")
+                )
             )
     fig.update_layout(coloraxis_showscale=True, coloraxis_cmin=-1, coloraxis_cmax=1,
                     title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
-                    xaxis={"title_font": {"size": 18}, "showgrid": True},
-                    yaxis={"title_font": {"size": 18}, "showgrid": True})
+                    xaxis={"title_font": {"size": 18}, "showgrid": True, "tickangle": -45},
+                    yaxis={"title_font": {"size": 18}, "showgrid": True},
+                    width=wid, height=hei, annotations=annotations)
     return fig
 
 def plot_orders_per_day(df: pd.DataFrame):
@@ -258,7 +265,7 @@ def plot_orders_per_week(df: pd.DataFrame):
     df = df[["Week_Ordered", "ID"]].pivot_table(index="Week_Ordered", aggfunc="count").reset_index()
     all_weeks = pd.DataFrame({"Week_Ordered": range(df["Week_Ordered"].min(), df["Week_Ordered"].max() + 1)})
     df = pd.merge(all_weeks, df, on="Week_Ordered", how="left").fillna(0)
-    fig = px.line(df, x="Week_Ordered", y="ID", title="Weekly orders", labels={"Week_Ordered": "Week of the year", "ID": "Quantity"}, markers=True)
+    fig = px.line(df, x="Week_Ordered", y="ID", title="Weekly orders", labels={"Week_Ordered": "Week of the year", "ID": "Orders"}, markers=True)
     fig.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
         xaxis={"title_font": {"size": 18}, "showgrid": True},
         yaxis={"title_font": {"size": 18}, "showgrid": True})

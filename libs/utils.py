@@ -5,34 +5,6 @@ from haversine import haversine
 pd.set_option("display.max_columns", None)
 pd.set_option("future.no_silent_downcasting", True)
 
-def check_outliers(df, bounds=1.5):
-    """
-    Receives a DataFrame and return another Dataframe with only outliers.
-    Take as base the assumption that the data is normally distributed.
-    
-    :param df: DataFrame to be analyzed.
-    :param bounds: Multiplier for IQR to determine outliers, smaller number means greater sensitivity.
-    :return: DataFrame with outliers.
-    """
-    outliers_list = []
-    # Loop through each numeric column in the DataFrame
-    for column in df.select_dtypes(include=[np.number]).columns:
-        # Calculate the 1 quartil (Q1)
-        q1 = df[column].quantile(0.25)
-        # Calculate the 3 quartil (Q3)
-        q3 = df[column].quantile(0.75)
-        # Calculate the Interquartile Range (IQR)
-        iqr = q3 - q1
-        # Define the upper and lower bounds for outliers
-        lower_bound = q1 - bounds * iqr
-        upper_bound = q3 + bounds * iqr
-        # Identify the outliers and add them to the list
-        outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
-        outliers_list.append(outliers)
-    # Concatenate all outliers identified
-    df_outliers = pd.concat(outliers_list).drop_duplicates().reset_index(drop=True)
-    return df_outliers
-
 def clear_data(df):
     """
     Cleans and preprocesses the input DataFrame by performing the following steps:
@@ -128,3 +100,92 @@ def load_dataset():
         df = pd.read_csv("./data/dataset_raw.csv")
         df = clear_data(df)
     return df
+
+def check_outliers(df, bounds=1.5):
+    """
+    Receives a DataFrame and return another Dataframe with only outliers.
+    Take as base the assumption that the data is normally distributed.
+    
+    :param df: DataFrame to be analyzed.
+    :param bounds: Multiplier for IQR to determine outliers, smaller number means greater sensitivity.
+    :return: DataFrame with outliers.
+    """
+    outliers_list = []
+    # Loop through each numeric column in the DataFrame
+    for column in df.select_dtypes(include=[np.number]).columns:
+        # Calculate the 1 quartil (Q1)
+        q1 = df[column].quantile(0.25)
+        # Calculate the 3 quartil (Q3)
+        q3 = df[column].quantile(0.75)
+        # Calculate the Interquartile Range (IQR)
+        iqr = q3 - q1
+        # Define the upper and lower bounds for outliers
+        lower_bound = q1 - bounds * iqr
+        upper_bound = q3 + bounds * iqr
+        # Identify the outliers and add them to the list
+        outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
+        outliers_list.append(outliers)
+    # Concatenate all outliers identified
+    df_outliers = pd.concat(outliers_list).drop_duplicates().reset_index(drop=True)
+    return df_outliers
+
+def stringfy_time(time: int | float | list[int | float] | pd.DataFrame):
+    """
+    Converts time values from minutes to a string format of "hours:minutes".
+
+    This function handles different types of input:
+    - If the input is a single integer or float, it converts it to a string in the format "hours:minutes".
+    - If the input is a list of integers or floats, it converts each element to the "hours:minutes" format.
+    - If the input is a DataFrame, it converts each numeric element to the "hours:minutes" format.
+
+    Parameters:
+    time (int | float | list[int | float] | pd.DataFrame): The time value(s) to be converted.
+        - If int or float: A single time value in minutes.
+        - If list: A list of time values in minutes.
+        - If pd.DataFrame: A DataFrame containing time values in minutes.
+
+    Returns:
+    str | list[str] | list[list[str]]: The formatted time string(s).
+        - If input is int or float: A single string in the format "hours:minutes".
+        - If input is list: A list of strings in the format "hours:minutes".
+        - If input is pd.DataFrame: A list of lists of strings in the format "hours:minutes".
+
+    Raises:
+    ValueError: If the input type is invalid or if elements in the list or DataFrame are not int or float.
+    """
+    if isinstance(time, (int, float, np.int64, np.float64)):
+        time = pd.Timedelta(round(time), unit="m")
+        total_seconds = int(time.total_seconds())
+        hours = total_seconds // 3600
+        minutes = (total_seconds % 3600) // 60
+        return f"{hours}:{minutes:02d}"
+    elif isinstance(time, list):
+        formatted_times = []
+        for t in time:
+            if isinstance(t, (int, float, np.int64, np.float64)):
+                t = pd.Timedelta(round(t), unit="m")
+                total_seconds = int(t.total_seconds())
+                hours = total_seconds // 3600
+                minutes = (total_seconds % 3600) // 60
+                formatted_times.append(f"{hours}:{minutes:02d}")
+            else:
+                raise ValueError("List elements must be int or float")
+        return formatted_times
+    elif isinstance(time, pd.DataFrame):
+        formatted_times = []
+        for row in time.itertuples(index=False):
+            row_times = []
+            for t in row:
+                if isinstance(t, (int, float, np.int64, np.float64)):
+                    t = pd.Timedelta(round(t), unit="m")
+                    total_seconds = int(t.total_seconds())
+                    hours = total_seconds // 3600
+                    minutes = (total_seconds % 3600) // 60
+                    row_times.append(f"{hours}:{minutes:02d}")
+                else:
+                    raise ValueError("DataFrame elements must be int or float")
+            formatted_times.append(row_times)
+        return formatted_times
+    else:
+        raise ValueError(f"Invalid input type: {type(time)}. Input must be int, float, list of int/float, or DataFrame")
+
