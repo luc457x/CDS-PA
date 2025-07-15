@@ -14,10 +14,10 @@ with col3:
     st.markdown("# Curry Company")
     st.markdown("### Fastest in Town")
 st.sidebar.markdown("""---""")
-col1, col2, col3 = st.sidebar.columns([0.75, 2, 1])
+col1, col2, col3 = st.sidebar.columns([1.1, 2, 1])
 with col2:
     lucas7x_logo = Image.open("./img/lucas7x.png")
-    st.image(lucas7x_logo, width=180)
+    st.image(lucas7x_logo, width=120)
 st.sidebar.write(
     """
     Ask for Help
