@@ -15,6 +15,17 @@ df_clear = load_dataset()
 ### Layout Streamlit
 st.set_page_config(page_title="Curry Company - Dashboard", page_icon="📈", layout="wide")
 ## Sidebar
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {
+        width: 4650px;
+        margin-left: -350px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 col1, col2, col3, col4 = st.sidebar.columns([0.1, 3, 2, 0.5])
 with col2:
     img = Image.open("./img/logo.png")
