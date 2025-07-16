@@ -187,5 +187,5 @@ def stringfy_time(time: int | float | list[int | float] | pd.DataFrame):
             formatted_times.append(row_times)
         return formatted_times
     else:
-        raise ValueError(f"Invalid input type: {type(time)}. Input must be int, float, list of int/float, or DataFrame")
+        raise ValueError(f"Invalid input type: {type(time)}. Input must be int, float, list of int/float, or pd.DataFrame")
 
