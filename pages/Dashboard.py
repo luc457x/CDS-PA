@@ -14,27 +14,21 @@ from libs import (
 df_clear = load_dataset()
 ### Layout Streamlit
 st.set_page_config(page_title="Curry Company - Dashboard", page_icon="📈", layout="wide")
-with open("./css/styles.css") as css:
-        st.markdown(f"<style>{css.read()}</style>", unsafe_allow_html=True)
 ## Sidebar
-col1, col2, col3, col4 = st.sidebar.columns([0.5, 3, 2, 0.5])
+col1, col2, col3, col4 = st.sidebar.columns([0.1, 3, 2, 0.5])
 with col2:
     img = Image.open("./img/logo.png")
-    st.image(img, width=180)
+    st.image(img, width=190)
 with col3:
     st.markdown("# Curry Company")
     st.markdown("### Fastest in Town")
 st.sidebar.markdown("""---""")
-col1, col2, col3 = st.sidebar.columns(3, gap="medium")
-with col1:
-    if st.button("Company view"):
-        st.session_state.visualizacao = 1
-with col2:
-    if st.button("Delivery view"):
-        st.session_state.visualizacao = 2
-with col3:
-    if st.button("Restaurant view"):
-        st.session_state.visualizacao = 3
+if st.sidebar.button("Company view", use_container_width=True):
+    st.session_state.visualizacao = 1
+if st.sidebar.button("Delivery view", use_container_width=True):
+    st.session_state.visualizacao = 2
+if st.sidebar.button("Restaurant view", use_container_width=True):
+    st.session_state.visualizacao = 3
 st.sidebar.markdown("""---""")
 st.sidebar.write("**Data range**")
 col1, col2 = st.sidebar.columns(2)
@@ -112,7 +106,7 @@ def viz1():
         with st.container():
             col1, col2, col3 = st.columns([1, 1, 1])
             with col1:
-                st.write("Delivery central locations grouped by city type and traffic:")
+                st.write("Central delivery locations:")
                 folium_static(plot_central_delivery_locations(df_clear), width=1024, height=600)
             with col2:
                 st.write("Restaurant locations:")
@@ -151,12 +145,12 @@ def viz2():
     with st.container():
         col1, col2 = st.columns([1, 2])
         with col1:
-            st.caption("Mean ratings by delivery service:")
+            st.write("Mean ratings by delivery service:")
             st.dataframe(get_mean_ratings_by_service(df_clear), use_container_width=True, height=560)
         with col2:
-            st.caption("Mean ratings and variation by traffic:")
+            st.write("Mean ratings and variation by traffic:")
             st.dataframe(get_means_ratings_by_traffic(df_clear), use_container_width=True)
-            st.caption("Mean ratings and variation by weather:")
+            st.write("Mean ratings and variation by weather:")
             st.dataframe(get_mean_ratings_by_weather(df_clear), use_container_width=True)
     return None
 
@@ -176,20 +170,20 @@ def viz3():
     with st.container():
         col1, col2, col3 = st.columns([1, 1, 1])
         with col1:
-            st.caption("Mean Pick-up time by order:")
+            st.write("Mean Pick-up time by order:")
             st.dataframe(get_mean_pick_time_by_order(df_clear))
         with col2:
-            st.caption("Mean Pick-up time by city type:")
+            st.write("Mean Pick-up time by city type:")
             st.dataframe(get_mean_pick_time_by_city(df_clear))
         with col3:
-            st.caption("Mean Pick-up time by traffic density:")
+            st.write("Mean Pick-up time by traffic density:")
             st.dataframe(get_mean_pick_time_by_traffic(df_clear), height=177)
         col1, col2 = st.columns([1, 1])
         with col1:
-            st.caption("Top 10 fastest deliveries:")
+            st.write("Top 10 fastest deliveries:")
             st.dataframe(get_top_10_fastest_deliveries(df_clear))
         with col2:
-            st.caption("Top 10 fastest deliveries:")
+            st.write("Top 10 fastest deliveries:")
             st.dataframe(get_top_10_fastest_deliveries(df_clear, reverse=True))
     return None
 
