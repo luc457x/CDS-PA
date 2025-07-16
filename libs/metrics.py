@@ -287,16 +287,18 @@ def plot_orders_by_traffic(df: pd.DataFrame):
         legend={"font": {"size": 18}})
     return fig
 
-def plot_orders_by_traffic_and_city_type(df: pd.DataFrame):
+def plot_orders_by_traffic_and_city_type(df: pd.DataFrame, log: bool=False):
     """
-    This function processes the DataFrame to count the number of orders for each combination of city type and traffic density,
-    and then plots these counts using a stacked bar chart.
+    This function processes the DataFrame to count the number of orders for each combination of city type and road traffic density.
+    It then plots these counts using a bar chart, with bars grouped by city type and colored by traffic density.
+    The y-axis can be set to a logarithmic scale based on the 'log' parameter.
 
     :param df: DataFrame containing the dataset with "ID", "City", and "Road_traffic_density" columns.
-    :return: Plotly figure object with the stacked bar chart showing the distribution of orders by city type and traffic density.
+    :param log: Boolean flag to determine if the y-axis should be on a logarithmic scale. If True, the y-axis is logarithmic; if False, it is linear.
+    :return: Plotly figure object with the bar chart showing the number of orders by city type and traffic density.
     """
     df = df[["ID", "City", "Road_traffic_density"]].groupby(["City", "Road_traffic_density"]).count().reset_index()
-    fig = px.bar(df, x="City", y="ID", color="Road_traffic_density", title="Orders by city type grouped by traffic density", labels={"City": "City type", "ID": "Quantity", "Road_traffic_density": "Traffic"}, barmode="stack", log_y=True)
+    fig = px.bar(df, x="City", y="ID", color="Road_traffic_density", title="Orders by city type grouped by traffic density", labels={"City": "City type", "ID": "Quantity", "Road_traffic_density": "Traffic"}, barmode="stack", log_y=log)
     fig.update_layout(title={"x": 0.5, "xanchor": "center", "font": {"size": 24}},
         xaxis={"title_font": {"size": 18}, "showgrid": True},
         yaxis={"title_font": {"size": 18}, "showgrid": True})
