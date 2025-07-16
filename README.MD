@@ -1,6 +1,6 @@
 # Curry Company Growth Dashboard
 
-This Growth Dashboard was built to track the growth metrics of Curry Company, a digital platform that connects Delivery Services and Restaurants.
+This Growth Dashboard was built to track the growth metrics of Curry Company, a digital platform that connects Delivery Services and Restaurants to customers.
 
 ## What this Growth Dashboard shows?
 - **Company View**:
