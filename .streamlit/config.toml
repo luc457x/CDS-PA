@@ -1,0 +1,7 @@
+[runner]
+fastReruns = true
+
+[theme]
+base = "dark"
+font = "monospace, sans serif"
+baseFontSize = 18

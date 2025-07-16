@@ -12,7 +12,7 @@ This Growth Dashboard was built to track the growth metrics of Curry Company, a 
 - **Restaurant View**:
     - Relevant metrics to track the performance of restaurants.
 
-Deployed on: [Curry Company Growth Dashboard](https://lorem-ipsum-dashboard.streamlit.app/) 
+Deployed on: [Curry Company Growth Dashboard](https://currycomp.streamlit.app/) 
 
 # Business Problems:
 
@@ -55,7 +55,7 @@ The dashboard was created using streamlit. It consists on 4 parts:
 - A notebook with answered KBQs and insights.<br>
 The notebook can be found on the [Project's GitHub Repository](https://github.com/luc457x/CDS_PA-Curry_Company/blob/main/notebook.ipynb).
 - A dashboard with the main metrics and graphs.<br>
-The dashbord can be found on the [Streamlit Cloud](https://lorem-ipsum-dashboard.streamlit.app/).
+The dashbord can be found on the [Streamlit Cloud](https://currycomp.streamlit.app/).
 
 # Conclusion
 
