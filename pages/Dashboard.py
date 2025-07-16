@@ -18,9 +18,8 @@ st.set_page_config(page_title="Curry Company - Dashboard", page_icon="📈", lay
 st.markdown(
     """
     <style>
-    [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {
-        width: 4650px;
-        margin-left: -350px;
+    [data-testid="stSidebar"][aria-expanded="true"] {
+        min-width: 465px;
     }
     </style>
     """,
