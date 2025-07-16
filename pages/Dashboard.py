@@ -156,7 +156,7 @@ def viz2():
         col1, col2 = st.columns([1, 2])
         with col1:
             st.write("Mean ratings by delivery service:")
-            st.dataframe(get_mean_ratings_by_service(df_clear), use_container_width=True, height=560)
+            st.dataframe(get_mean_ratings_by_service(df_clear), use_container_width=True, height=623)
         with col2:
             st.write("Mean ratings and variation by traffic:")
             st.dataframe(get_means_ratings_by_traffic(df_clear), use_container_width=True)
@@ -187,7 +187,7 @@ def viz3():
             st.dataframe(get_mean_pick_time_by_city(df_clear))
         with col3:
             st.write("Mean Pick-up time by traffic density:")
-            st.dataframe(get_mean_pick_time_by_traffic(df_clear), height=177)
+            st.dataframe(get_mean_pick_time_by_traffic(df_clear), height=197)
         col1, col2 = st.columns([1, 1])
         with col1:
             st.write("Top 10 fastest deliveries:")
