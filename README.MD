@@ -7,7 +7,7 @@ This Growth Dashboard was built to track the growth metrics of Curry Company, a 
     - Tactical View: Weekly growth indicators.
     - Managerial View: General behavior metrics.
     - Geographical View: Geolocation insights.
-- **Delivery Person View**:
+- **Delivery View**:
     - Relevant metrics to track the performance of delivery services.
 - **Restaurant View**:
     - Relevant metrics to track the performance of restaurants.
