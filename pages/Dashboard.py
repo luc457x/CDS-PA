@@ -193,7 +193,7 @@ def viz3():
             st.write("Top 10 fastest deliveries:")
             st.dataframe(get_top_10_fastest_deliveries(df_clear))
         with col2:
-            st.write("Top 10 fastest deliveries:")
+            st.write("Top 10 slowest deliveries:")
             st.dataframe(get_top_10_fastest_deliveries(df_clear, reverse=True))
     return None
 
